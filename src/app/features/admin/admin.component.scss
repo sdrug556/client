@@ -1,0 +1,84 @@
+$listWidth: 300px;
+$headerHeight: 80px;
+$borderRadius: 5px;
+$bgColor: #c10003;
+$boxShadow: 1px 1px 23px -6px #000;
+
+:host {
+  @apply h-screen w-screen overflow-hidden bg-gray-50;
+  display: grid;
+  grid-template-columns: $listWidth 1fr;
+}
+
+.nav {
+  width: $listWidth;
+  background: #be0002;
+  box-shadow: $boxShadow;
+}
+
+.nav-info {
+  box-sizing: border-box;
+  padding: 14px 16px 13px;
+  height: 150px;
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
+  // box-shadow: $boxShadow;
+  background-image: url("/assets/img/hypersaver.jpg");
+}
+
+.content {
+  @apply h-screen flex-col;
+}
+
+header {
+  @apply flex items-center pl-4 pr-4;
+  height: $headerHeight;
+}
+
+.menu-icon {
+  @apply mr-2;
+}
+
+.menu-icon {
+  font-size: 1.7rem;
+}
+
+.menu-title {
+  font-size: 1.6rem;
+}
+
+.item-container {
+  margin-left: -18px;
+}
+
+#route-content {
+  background-color: #eaeaea;
+}
+
+::ng-deep app-admin dx-tree-view .dx-treeview-node {
+  transition: color .2s ease-in;
+  border-radius: $borderRadius;
+}
+
+::ng-deep app-admin dx-tree-view .dx-treeview-node.dx-state-selected {
+  background: $bgColor !important;
+  box-shadow: $boxShadow;
+}
+
+::ng-deep app-admin dx-tree-view .dx-treeview-node.dx-state-selected .item-container {
+  color: #f9fafb;
+}
+
+::ng-deep app-admin dx-tree-view .dx-scrollable-container {
+  overflow: visible;
+}
+
+::ng-deep app-admin dx-tree-view .dx-treeview-toggle-item-visibility {
+  left: unset;
+  right: 5px;
+}
+
+// ::ng-deep app-admin dx-tree-view .dx-treeview-node-container > .dx-treeview-node {
+//   padding-left: 0;
+// }
+

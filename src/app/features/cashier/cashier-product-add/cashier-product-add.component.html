@@ -1,0 +1,62 @@
+<dx-popup
+    #productsPopup
+    width="100vw"
+    height="100vh"
+    maxHeight="700px"
+    maxWidth="600px"
+    title="Add Product"
+    [showCloseButton]="true"
+    [visible]="popupOptions?.visible ?? false"
+    [deferRendering]="popupOptions?.deferRendering"
+  >
+  <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="top"
+      location="after"
+      [options]="buttons['add']"
+      >
+  </dxi-toolbar-item>
+  <div *dxTemplate="let d of 'content'">
+    <dx-text-box mode="search" (onValueChanged)="searchProduct($event)">
+    </dx-text-box>
+    <dx-list
+      keyExpr="id"
+      [activeStateEnabled]="false"
+      [focusStateEnabled]="false"
+      [dataSource]="products"
+      >
+      <div *dxTemplate="let product of 'item'" class="relative">
+        <div class="flex items-center">
+          <div class="flex flex-col">
+            <span class="text-xl font-black">{{ product.name }}</span>
+            <br>
+            <div>
+              <span class="text-md">{{ product.price | currency }}</span>
+              <span class="mx-3 text-gray-300"> | </span>
+              <span>Stocks:</span>
+              <span class="text-lg text-black ml-2">{{ product.stock }}</span>
+            </div>
+          </div>
+          <div class="ml-auto">
+            <dx-number-box
+              width="150px"
+              placeholder="Quantity"
+              [value]="product.quantity ?? null"
+              (onValueChanged)="onProductQuantityChange($event, product)"
+              >
+              <dx-validator validationGroup="productAddValidator">
+                <dxi-validation-rule
+                    type="range"
+                    message="Invalid input stock"
+                    [min]="1"
+                    [max]="product.stock"
+                  >
+                </dxi-validation-rule>
+              </dx-validator>
+            </dx-number-box>
+          </div>
+        </div>
+      </div>
+    </dx-list>
+  </div>
+</dx-popup>

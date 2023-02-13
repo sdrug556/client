@@ -1,0 +1,21 @@
+:host {
+  @apply relative;
+}
+
+.mdi {
+  font-size: 1.6rem;
+}
+
+.badge {
+  background: red;
+  padding: 5px;
+  border-radius: 15px;
+  position: absolute;
+  top: -9px;
+  left: 10px;
+  height: 25px;
+  min-width: 25px;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+}

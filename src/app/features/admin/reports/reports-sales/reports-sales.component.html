@@ -1,0 +1,97 @@
+<h1 class="text-6xl mb-6">Sales Reports</h1>
+
+<dx-data-grid class="shadow-xl" [dataSource]="sales" keyExpr="id">
+  <dxo-export fileName="sales-report" [enabled]="true"> </dxo-export>
+
+  <dxo-editing
+    [allowUpdating]="false"
+    [allowDeleting]="false"
+    [allowAdding]="false"
+  >
+  </dxo-editing>
+
+  <dxo-group-panel [visible]="true"> </dxo-group-panel>
+
+  <dxo-toolbar>
+    <dxi-item location="before" name="groupPanel">
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Sales Today"
+          [type]="activeButton == 'Sales Today' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Sales this Week"
+          [type]="activeButton == 'Sales this Week' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Sales this Month"
+          [type]="activeButton == 'Sales this Month' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Sales last Month"
+          [type]="activeButton == 'Sales last Month' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Sales this Year"
+          [type]="activeButton == 'Sales this Year' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Generate Report"
+          type="default"
+          (onClick)="generateReport()"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+  </dxo-toolbar>
+
+  <dxi-column dataField="invoiceNumber" caption="Invoice Number"></dxi-column>
+  <dxi-column dataField="name" caption="Cashier"></dxi-column>
+  <dxi-column dataField="productName" caption="Product"></dxi-column>
+  <dxi-column dataField="price" caption="Price"></dxi-column>
+  <dxi-column dataField="quantity" caption="Quantity"></dxi-column>
+  <dxi-column dataField="discount" caption="Discount"></dxi-column>
+  <dxi-column dataField="total" caption="Total"></dxi-column>
+  <dxi-column
+    dataField="createdDate"
+    caption="Transaction Date"
+    dataType="datetime"
+  ></dxi-column>
+</dx-data-grid>

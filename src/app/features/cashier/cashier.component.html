@@ -1,0 +1,236 @@
+<div class="header flex w-full">
+  <div class="flex w-full h-full">
+    <section>
+      <div><b>Transaction NO.</b></div>
+      <div class="text-3xl font-black">{{ transactionNo ?? '' }}</div>
+    </section>
+    <section class="ml-6">
+      <div><b>Transaction Date.</b></div>
+      <div class="text-3xl font-black">
+        {{ transactionDate ?? '' | date:'medium' }}
+      </div>
+    </section>
+  </div>
+  <div class="flex w-full h-full justify-end">
+    <div class="text-3xl font-black">
+      {{ dateAndTimeNow ?? '' | date:'medium' }}
+    </div>
+  </div>
+</div>
+<div
+  class="content w-full h-full grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 2xl:grid-cols-12"
+>
+  <div class="col-span-10">
+    <dx-data-grid
+      class="cashier-grid shadow-xl"
+      [dataSource]="selectedProducts"
+      (onRowPrepared)="onRowPrepared($event)"
+    >
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-editing mode="cell" [allowUpdating]="true" [confirmDelete]="false">
+      </dxo-editing>
+
+      <dxi-column
+        dataField="name"
+        caption="Name"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="description"
+        caption="Description"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="quantity"
+        caption="Quantity"
+        width="auto"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="price"
+        caption="Price"
+        width="auto"
+        format="currency"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="discount"
+        caption="Discount(%)"
+        width="auto"
+        [allowEditing]="true"
+      ></dxi-column>
+      <dxi-column
+        dataField="total"
+        caption="Total"
+        width="auto"
+        format="currency"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="stock"
+        caption="Stock"
+        width="auto"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="buttons"
+        [minWidth]="100"
+        caption=""
+        cellTemplate="commandTemplate"
+        width="auto"
+        [allowEditing]="false"
+      >
+        <div
+          *dxTemplate="let d of 'commandTemplate'"
+          class="flex justify-center"
+        >
+          <dx-button
+            type="normal"
+            icon="mdi mdi-chevron-left"
+            class="text-xl"
+            (onClick)="subtractQty(d)"
+          >
+          </dx-button>
+          <dx-button
+            type="normal"
+            icon="mdi mdi-chevron-right"
+            class="text-xl"
+            (onClick)="addQty(d)"
+          >
+          </dx-button>
+          <dx-button
+            type="normal"
+            icon="mdi mdi-trash-can"
+            class="text-xl ml-8"
+            (onClick)="deleteRow(d)"
+          >
+          </dx-button>
+        </div>
+      </dxi-column>
+
+      <dxo-toolbar>
+        <dxi-item location="after">
+          <div *dxTemplate>
+            <dx-button text="Add Product" width="136" (onClick)="addProduct()">
+            </dx-button>
+          </div>
+        </dxi-item>
+      </dxo-toolbar>
+    </dx-data-grid>
+  </div>
+  <div class="col-span-2 pl-4">
+    <div class="menu-buttons">
+      <dx-button
+        [type]="isNewTransaction ? 'default' : 'normal'"
+        text="New Transaction"
+        icon="mdi mdi-handshake"
+        (onClick)="newTransaction()"
+      ></dx-button>
+      <dx-button
+        text="Settle Payment"
+        icon="mdi mdi-contactless-payment"
+        (onClick)="showSettlePayment()"
+      ></dx-button>
+      <dx-button
+        text="Clear Cart"
+        icon="mdi mdi-cart"
+        (onClick)="cancelTransaction()"
+      ></dx-button>
+      <dx-button
+        text="Today Sales"
+        icon="mdi mdi-cart"
+        (onClick)="todaySales()"
+      ></dx-button>
+      <dx-button
+        text="Logout"
+        icon="mdi mdi-logout"
+        (click)="logout()"
+      ></dx-button>
+    </div>
+    <div class="transaction-info pt-6">
+      <section classs="pb-2">
+        <span class="text-xl">Sales Total</span>
+        <br />
+        <span class="text-4xl">{{ totalSales | currency }}</span>
+      </section>
+      <section classs="pb-2">
+        <span class="text-xl">Discount</span>
+        <br />
+        <span class="text-4xl">{{ discounted | currency }}</span>
+      </section>
+      <section classs="pb-2">
+        <span class="text-xl">VAT</span>
+        <br />
+        <span class="text-4xl">0</span>
+      </section>
+      <section classs="pb-2">
+        <span class="text-xl">VATABLE</span>
+        <br />
+        <span class="text-4xl">0</span>
+      </section>
+    </div>
+  </div>
+</div>
+<app-cashier-product-add
+  #cashierProductAdd
+  (onAddNewProduct)="onAddNewProduct($event)"
+  [selectedProducts]="selectedProducts"
+>
+</app-cashier-product-add>
+<app-cashier-today-sales> </app-cashier-today-sales>
+<dx-popup
+  #settlePaymentPopup
+  maxHeight="600px"
+  maxWidth="400px"
+  width="100vw"
+  height="auto"
+  title="Settle Payment"
+  [closeOnOutsideClick]="false"
+  [showCloseButton]="true"
+>
+  <div *dxTemplate="let d of 'content'">
+    <section>
+      <div class="dx-field">
+        <div class="dx-field-label">Total</div>
+        <div class="dx-field-value text-xl">
+          {{ totalSales | currency }}
+        </div>
+      </div>
+    </section>
+    <section class="mt-2">
+      <div class="dx-field">
+        <div class="dx-field-label">Cash</div>
+        <div class="dx-field-value">
+          <dx-number-box
+            #cashNumberbox
+            (onValueChanged)="cashValueChanged($event, changeNumberbox)"
+            format="$ #,##0.##"
+            valueChangeEvent="input"
+            ></dx-number-box>
+        </div>
+      </div>
+    </section>
+    <section class="mt-2">
+      <div class="dx-field">
+        <div class="dx-field-label">Change</div>
+        <div class="dx-field-value">
+          <dx-number-box
+              #changeNumberbox
+              width="100%"
+              format="$ #,##0.##"
+              [disabled]="true"
+            ></dx-number-box>
+        </div>
+      </div>
+    </section>
+    <section class="mt-4">
+      <dx-button
+          [disabled]="cashNumberbox.value < totalSales"
+          width="100%"
+          text="Settle Payment"
+          (onClick)="settlePayment()"
+        >
+      </dx-button>
+    </section>
+  </div>
+</dx-popup>

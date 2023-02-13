@@ -1,0 +1,113 @@
+<div id="register-form-container">
+  <dx-form #form validationGroup="registerForm">
+    <dxi-item
+      itemType="group"
+      caption="Register"
+      [colCount]="2"
+      [colSpan]="2"
+      >
+      <dxi-item 
+        dataField="firstname"
+        [colSpan]="1"
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="lastname"
+        [colSpan]="1"
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="address"
+        editorType="dxTextArea"
+        [colSpan]="2"
+        >
+      </dxi-item>
+      <dxi-item
+        dataField="type"
+        editorType="dxLookup"
+        [editorOptions]="{
+          dataSource: userType,
+          valueExpr: 'value',
+          displayExpr: 'text'
+        }"
+        >
+        <dxo-label text="Position"></dxo-label>
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="birthdate"
+        editorType="dxDateBox"
+        >
+      </dxi-item>
+      <dxi-item
+        dataField="phone"
+        editorType="dxNumberBox"
+        [colSpan]="2"
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="email"
+        [editorOptions]="{
+          mode: 'email'
+        }"
+        [colSpan]="2"
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="email"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="password"
+        [colSpan]="1"
+        [editorOptions]="passwordEditorOptions"
+        #password
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [min]="6" message="Password must have at least 6 characters">
+        </dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [max]="20" message="Password must have less than 20 characters">
+        </dxi-validation-rule>
+      </dxi-item>
+      <dxi-item
+        dataField="confirmPassword"
+        [colSpan]="1"
+        [editorOptions]="{ mode: 'password' }"
+        >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule
+          type="compare"
+          [comparisonTarget]="passwordComparison"
+          message="Password and Confirm Password do not match"
+          >
+        </dxi-validation-rule>
+      </dxi-item>
+      <dxi-item itemType="simple">
+        <dx-button
+          class="mr-4"
+          text="Register"
+          validationGroup="registerForm"
+          (onClick)="submit(form)"
+          >
+        </dx-button>
+        <dx-button
+          text="Login"
+          (onClick)="login()"
+          >
+        </dx-button>
+      </dxi-item>
+    </dxi-item>
+  </dx-form>
+</div>
+<dx-load-panel
+  shadingColor="rgba(0,0,0,0.4)"
+  [position]="{ of: 'body' }"
+  [visible]="loadingVisible"
+  [showIndicator]="true"
+  [showPane]="true"
+  [shading]="true"
+  [closeOnOutsideClick]="false"
+>
+</dx-load-panel>
+<!-- #register-form-container -->

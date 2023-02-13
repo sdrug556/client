@@ -1,0 +1,26 @@
+:host {
+  @apply w-full h-full flex items-center justify-center;
+}
+
+.container {
+  height: 100%;
+}
+
+:host:hover .hover-buttons {
+  display: flex;
+}
+
+.hover-buttons {
+  display: none;
+  position: absolute;
+}
+
+.hover-buttons > dx-button:not(:last-child) {
+  @apply mr-2;
+}
+
+input[type="file"] {
+  position: fixed;
+  top: -999999px;
+  left: -999999px;
+}

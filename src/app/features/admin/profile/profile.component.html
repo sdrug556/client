@@ -1,0 +1,17 @@
+<h1 class="text-6xl mb-6">Profile</h1>
+<dx-form [formData]="{}" [colCount]="2" width="70%">
+  <dxi-item dataField="type" caption="Type"></dxi-item>
+  <dxi-item itemType="empty"></dxi-item>
+  <dxi-item dataField="phone" caption="Phone"></dxi-item>
+  <dxi-item dataField="email" caption="Email"></dxi-item>
+  <dxi-item
+    dataField="address"
+    caption="Address"
+    editorType="dxTextArea"
+  ></dxi-item>
+  <dxi-item itemType="empty"></dxi-item>
+  <dxi-item itemType="simple">
+    <dx-button text="Save" icon="mdi mdi-content-save" class="mr-4"></dx-button>
+    <dx-button text="Refresh" icon="mdi mdi-refresh"></dx-button>
+  </dxi-item>
+</dx-form>

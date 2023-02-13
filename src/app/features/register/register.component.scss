@@ -1,0 +1,8 @@
+:host {
+  @apply h-screen w-screen flex justify-center items-center overflow-x-hidden;
+}
+
+#register-form-container {
+   @apply p-3 box-border h-full;
+   min-width: 600px;
+}

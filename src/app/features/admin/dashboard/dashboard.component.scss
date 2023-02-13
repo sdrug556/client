@@ -1,0 +1,18 @@
+
+.card-container {
+  @apply flex items-center justify-center box-border px-2 py-8 pt-0 mt-6;
+}
+.card {
+  @apply flex flex-col justify-between shadow-md rounded-lg border-gray-300 p-12 bg-gray-100;
+  border: thin;
+  height: 200px;
+  width: 100%;
+}
+
+.card-title {
+  @apply text-xl font-bold;
+}
+
+.card-currency {
+  @apply text-4xl font-bold mb-2;
+}

@@ -1,0 +1,147 @@
+<h1 class="text-6xl mb-6">Stock Adjustment</h1>
+
+<dx-form
+  [formData]="formData"
+  [colCount]="1"
+  width="auto"
+  class="shadow-xl p-6"
+>
+  <dxi-item itemType="tabbed">
+    <dxo-tab-panel-options [deferRendering]="true" width="100%">
+    </dxo-tab-panel-options>
+    <dxi-tab title="Adjustment">
+      <dxi-item
+        dataField="stockInBy"
+        [colSpan]="1"
+        [editorOptions]="{ disabled: true }"
+      ></dxi-item>
+      <dxi-item
+        dataField="stockInDate"
+        [colSpan]="1"
+        [editorOptions]="{ disabled: true }"
+      ></dxi-item>
+      <dxi-item
+        dataField="supplier"
+        editorType="dxLookup"
+        [colSpan]="2"
+        [editorOptions]="{
+                          dataSource: suppliers,
+                          displayExpr: 'name',
+                          valueExpr: 'id'
+                          }"
+      >
+      </dxi-item>
+      <dxi-item itemType="simple" [colSpan]="2">
+        <dx-button
+          text="Click To Browse Product"
+          [disabled]="!formData.supplier"
+          (onClick)="showProductBySupplier()"
+        >
+        </dx-button>
+      </dxi-item>
+      <dxi-item>
+        <h1 class="text-4xl my-6">Selected Products</h1>
+        <dx-data-grid width="100%" [dataSource]="selectedProducts" class="mb-6">
+          <dxo-toolbar>
+            <dxi-item location="before">
+              <div *dxTemplate>
+                <dx-button
+                  text="Adjust Stock"
+                  [disabled]="!selectedProducts?.length ?? true"
+                  (onClick)="adjustStock()"
+                >
+                </dx-button>
+              </div>
+            </dxi-item>
+          </dxo-toolbar>
+          <dxo-editing
+            mode="cell"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="false"
+          >
+          </dxo-editing>
+          <dxi-column dataField="name" caption="Name" [allowEditing]="false">
+          </dxi-column>
+          <dxi-column
+            dataField="currentStock"
+            caption="Current Stocks"
+            [allowEditing]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="stock"
+            caption="Stock to Adjust"
+            [allowEditing]="true"
+            dataType="number"
+          >
+          </dxi-column>
+          <dxi-column type="buttons" width="100">
+            <dxi-button
+              hint="Remove"
+              icon="mdi mdi-trash-can"
+              name="delete"
+            ></dxi-button>
+          </dxi-column>
+        </dx-data-grid>
+      </dxi-item>
+    </dxi-tab>
+    <dxi-tab title="History">
+      <dxi-item>
+        <app-stock-adjustment-history>
+        </app-stock-adjustment-history>
+      </dxi-item>
+    </dxi-tab>
+  </dxi-item>
+</dx-form>
+
+<dx-popup
+  title="Products List"
+  height="100vh"
+  width="100vw"
+  maxWidth="600px"
+  maxHeight="700px"
+  [showTitle]="true"
+  [(visible)]="showProducts"
+  [showCloseButton]="true"
+  [closeOnOutsideClick]="false"
+  (onShowing)="productListOnShowing($event)"
+  (onHidden)="productListOnHidden($event)"
+>
+  <dxi-toolbar-item
+    widget="dxButton"
+    location="after"
+    [options]="addProducts"
+  ></dxi-toolbar-item>
+  <div *dxTemplate="let d of 'content'">
+    <dx-data-grid
+      #productsDatagrid
+      height="100%"
+      maxWidth="900"
+      keyExpr="id"
+      [dataSource]="products"
+    >
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-selection mode="multiple"></dxo-selection>
+      <dxi-column dataField="name" caption="Name" [allowEditing]="false">
+      </dxi-column>
+      <dxi-column
+        dataField="stock"
+        caption="Current Stocks"
+        [allowEditing]="false"
+      >
+      </dxi-column>
+    </dx-data-grid>
+  </div>
+</dx-popup>
+<dx-load-panel
+  shadingColor="rgba(0,0,0,0.4)"
+  [position]="{ of: 'body' }"
+  target="#route-content"
+  [visible]="showLoading"
+  [showIndicator]="true"
+  [showPane]="true"
+  [shading]="true"
+  [closeOnOutsideClick]="false"
+>
+</dx-load-panel>

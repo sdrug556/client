@@ -1,0 +1,36 @@
+<dx-data-grid width="100%" [dataSource]="adjustments" class="mb-6">
+  <dxo-editing
+    mode="cell"
+    [allowUpdating]="false"
+    [allowDeleting]="false"
+    [allowAdding]="false"
+  >
+  </dxo-editing>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="['5', '10', '15']"
+    displayMode="adaptive"
+    [showInfo]="true"
+  >
+  </dxo-pager>
+  <dxi-column
+    alignment="left"
+    dataField="productName"
+    caption="Product Name"
+    [allowEditing]="true"
+  >
+  </dxi-column>
+  <dxi-column dataField="user" caption="Adjusted By" alignment="left">
+  </dxi-column>
+  <dxi-column dataField="stock" caption="Stock Adjusted" alignment="left">
+  </dxi-column>
+  <dxi-column
+    dataField="createdDate"
+    caption="Adjusted Date"
+    dataType="date"
+    alignment="left"
+  >
+  </dxi-column>
+</dx-data-grid>

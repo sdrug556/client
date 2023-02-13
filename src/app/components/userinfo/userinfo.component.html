@@ -1,0 +1,16 @@
+<dx-drop-down-button
+  stylingMode="text"
+  displayExpr="title"
+  keyExpr="title"
+  [splitButton]="true"
+  [useSelectMode]="false"
+  [text]="name"
+  [icon]="image"
+  [items]="items"
+  (onItemClick)="onItemClick($event)"
+  >
+  <!-- <div *dxTemplate="let d of 'item'"> -->
+  <!--   <span class="{{ d.icon }}"></span> -->
+  <!--   <span>{{ d.title }}</span> -->
+  <!-- </div> -->
+</dx-drop-down-button>

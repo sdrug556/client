@@ -1,0 +1,41 @@
+<div class="hypersavers-img"></div>
+<div class="login-container p-8 rounded bg-gray-100">
+  <dx-form width="600px" height="auto" #form>
+    <dxi-item itemType="group">
+      <dxi-item dataField="email">
+        <dxo-label text="Email"></dxo-label>
+        <dxi-validation-rule
+          type="required"
+          message="Email is required"
+        ></dxi-validation-rule>
+        <dxi-validation-rule
+          type="email"
+          message="Email is invalid"
+        ></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="password" [editorOptions]="{ mode: 'password' }">
+        <dxo-label text="Password"></dxo-label>
+        <dxi-validation-rule
+          type="required"
+          message="Password is required."
+        ></dxi-validation-rule>
+      </dxi-item>
+    </dxi-item>
+    <dxi-item itemType="simple" class="login-bottons-bottom">
+      <dx-button class="mr-4" text="Login" (onClick)="submit($event, form)"></dx-button>
+      <dx-button text="Register" (onClick)="register()"></dx-button>
+      <a routerLink="/forgot-password" class="ml-auto underline">Forgot Password?</a>
+    </dxi-item>
+  </dx-form>
+</div>
+<!-- .login-container -->
+<dx-load-panel
+  shadingColor="rgba(0,0,0,0.4)"
+  [position]="{ of: 'body' }"
+  [visible]="loadingVisible"
+  [showIndicator]="true"
+  [showPane]="true"
+  [shading]="true"
+  [closeOnOutsideClick]="false"
+>
+</dx-load-panel>

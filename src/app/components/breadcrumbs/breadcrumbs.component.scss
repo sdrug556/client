@@ -1,0 +1,22 @@
+.item,
+:host {
+  @apply flex items-center;
+}
+
+.item {
+  @apply px-5 py-2 box-border relative;
+}
+
+.mdi {
+  position: absolute;
+  right: -12px;
+  font-size: 1.3rem;
+}
+
+.text {
+  font-size: 1.3rem;
+}
+
+.text:not(.last) {
+  @apply text-gray-400;
+}

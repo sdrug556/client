@@ -1,0 +1,131 @@
+<h1 class="text-6xl mb-6">Products</h1>
+<dx-data-grid
+  class="shadow-xl"
+  keyExpr="id"
+  [dataSource]="products"
+  [allowColumnReordering]="true"
+  [allowColumnResizing]="true"
+  (onSaving)="onSaving($event)"
+  (onInitNewRow)="onInitNewRow($event)"
+>
+  <dxi-column dataField="name" caption="Name">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="description" caption="Description"> </dxi-column>
+  <dxi-column dataField="expiration" caption="Expiration" dataType="date">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="category" caption="Category">
+    <dxo-lookup [dataSource]="categories" valueExpr="id" displayExpr="name">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="supplier" caption="Supplier">
+    <dxo-lookup
+      [dataSource]="suppliers"
+      valueExpr="id"
+      displayExpr="name"
+    ></dxo-lookup>
+  </dxi-column>
+  <dxi-column
+    dataField="price"
+    caption="Price"
+    [calculateDisplayValue]="currencyFormat"
+  >
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <!-- <dxi-column -->
+  <!--   dataField="status" -->
+  <!--   caption="Active" -->
+  <!--   dataType="boolean" -->
+  <!--   trueText="Yes" -->
+  <!--   falseText="No" -->
+  <!-- > -->
+  <!-- </dxi-column> -->
+  <dxi-column
+    dataField="createdDate"
+    caption="Created Date"
+    dataType="date"
+    allowEditing="false"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="reorderPoint"
+    caption="Reorder Point"
+    dataType="number"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="stock"
+    caption="Stocks"
+    dataType="number"
+    [allowEditing]="false"
+  >
+  </dxi-column>
+
+  <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true"
+  >
+    <dxo-popup
+      title="Add Product"
+      width="auto"
+      height="auto"
+      [showTitle]="true"
+      [wrapperAttr]="{ class: 'products-form-popup' }"
+    >
+    </dxo-popup>
+    <dxo-form>
+      <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+        <dxi-item dataField="name"></dxi-item>
+        <dxi-item dataField="category">
+          <dxo-lookup
+            [dataSource]="categories"
+            valueExpr="id"
+            displayExpr="name"
+          >
+          </dxo-lookup>
+        </dxi-item>
+        <dxi-item dataField="description" caption="Description"> </dxi-item>
+        <dxi-item
+          dataField="expiration"
+          [editorOptions]="{ dataType: 'date' }"
+        ></dxi-item>
+        <dxi-item dataField="supplier">
+          <dxo-lookup
+            [dataSource]="suppliers"
+            valueExpr="id"
+            displayExpr="name"
+          >
+          </dxo-lookup>
+        </dxi-item>
+        <dxi-item
+          dataField="price"
+          editorType="dxNumberBox"
+          [editorOptions]="priceEditorOptions"
+        ></dxi-item>
+        <dxi-item
+          dataField="createdDate"
+          [editorOptions]="{ dataType: 'date', disabled: true }"
+        ></dxi-item>
+        <!-- <dxi-item dataField="status" [editorOptions]="{ dataType: 'boolean' }"> -->
+        <!-- </dxi-item> -->
+        <dxi-item dataField="reorderPoint"> </dxi-item>
+      </dxi-item>
+    </dxo-form>
+  </dxo-editing>
+
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="['5', '10', '15']"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+    displayMode="full"
+  >
+  </dxo-pager>
+
+  <dxo-paging [pageSize]="10" [enabled]="true"> </dxo-paging>
+</dx-data-grid>

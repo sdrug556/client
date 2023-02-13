@@ -1,0 +1,20 @@
+<span id="notification-target" class="mdi mdi-bell"></span>
+<div class="badge" #badgeEl *ngIf="count">
+  {{ count }}
+</div><!-- .badge -->
+<dx-popover
+  target="#notification-target"
+  position="bottom"
+  (onShowing)="onShowing($event)"
+  >
+  <dxo-show-event
+    name="click"
+    >
+  </dxo-show-event>
+  <div *dxTemplate="let data = data; of: 'content'">
+    <h1>this is sample</h1>
+    <h1>this is sample</h1>
+    <h1>this is sample</h1>
+    <h1>this is sample</h1>
+  </div>
+</dx-popover>

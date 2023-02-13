@@ -1,0 +1,79 @@
+<h1 class="text-6xl mb-6">Products Reports</h1>
+<dx-data-grid class="shadow-xl" [dataSource]="products" keyExpr="id">
+  <dxo-export fileName="products-report" [enabled]="true"> </dxo-export>
+
+  <dxo-editing
+    [allowUpdating]="false"
+    [allowDeleting]="false"
+    [allowAdding]="false"
+  >
+  </dxo-editing>
+
+  <dxo-group-panel [visible]="true"> </dxo-group-panel>
+
+  <dxo-toolbar>
+    <dxi-item location="before" name="groupPanel"> </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Low Stocks"
+          [type]="activeButton == 'Low Stocks' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Expired"
+          [type]="activeButton == 'Expired' ? 'default' : 'normal'"
+          (onClick)="filterClicked($event)"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button>
+      </div>
+    </dxi-item>
+    <dxi-item location="after">
+      <div *dxTemplate>
+        <dx-button
+          text="Generate Report"
+          type="default"
+          (onClick)="generateReport()"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+  </dxo-toolbar>
+
+  <dxi-column
+    dataField="isExpired"
+    caption="Name"
+    [visible]="false"
+  ></dxi-column>
+  <dxi-column
+    dataField="lowStock"
+    caption="Name"
+    [visible]="false"
+  ></dxi-column>
+
+  <dxi-column dataField="name" caption="Name"></dxi-column>
+  <dxi-column dataField="description" caption="Description"></dxi-column>
+  <dxi-column
+    dataField="createdDate"
+    caption="Created Date"
+    dataType="date"
+  ></dxi-column>
+  <dxi-column dataField="price" caption="Price"></dxi-column>
+  <dxi-column
+    dataField="expiration"
+    caption="Expiration"
+    dataType="date"
+  ></dxi-column>
+  <dxi-column dataField="stock" caption="Stocks"></dxi-column>
+  <dxi-column dataField="reorderPoint" caption="Reorder Point"></dxi-column>
+</dx-data-grid>

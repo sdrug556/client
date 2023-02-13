@@ -1,0 +1,154 @@
+<dx-popup
+  title="Today Sales"
+  height="90vh"
+  [showTitle]="true"
+  [(visible)]="visible"
+  [showCloseButton]="true"
+  [closeOnOutsideClick]="false"
+  [deferRendering]="true"
+  (onShown)="onShown()"
+>
+  <dxi-toolbar-item widget="dxButton" location="after" [options]="saveButton">
+  </dxi-toolbar-item>
+  <div *dxTemplate="let d of 'content'">
+    <dx-data-grid
+      keyExpr="id"
+      height="100%"
+      width="100%"
+      [dataSource]="salesToday"
+    >
+      <dxo-editing
+        [allowUpdating]="false"
+        [allowAdding]="false"
+        [allowDeleting]="false"
+      >
+      </dxo-editing>
+      <dxo-export
+        [enabled]="true"
+        [fileName]="exportFilename"
+        [texts]="{ exportAll: 'Generate Report', exportSelectedRows: 'Generate Selected Rows Only' }"
+      >
+      </dxo-export>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+      <dxi-column dataField="invoiceNumber" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="price" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="discount" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="quantity" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="total" [allowEditing]="false"></dxi-column>
+      <dxi-column type="buttons" width="50">
+        <dxi-button
+          hint="Cancel Order"
+          icon="mdi mdi-cancel"
+          [onClick]="cancelOrder"
+        >
+        </dxi-button>
+      </dxi-column>
+    </dx-data-grid>
+  </div>
+</dx-popup>
+
+<dx-popup
+  width="auto"
+  height="60vh"
+  minHeight="700px"
+  title="Cancel Order"
+  [showTitle]="true"
+  [(visible)]="cancelOrderPopupVisible"
+  [showCloseButton]="true"
+  [closeOnOutsideClick]="false"
+  [deferRendering]="true"
+>
+  <dxi-toolbar-item
+    widget="dxButton"
+    location="after"
+    [options]="submitButtonOptions"
+  >
+  </dxi-toolbar-item>
+  <div *dxTemplate="let d of 'content'">
+    <dx-form [formData]="formData" [colCount]="2" [scrollingEnabled]="true">
+      <dxi-item
+        itemType="group"
+        caption="Order Information"
+        [colSpan]="2"
+        [colCount]="2"
+      >
+        <dxi-item
+          dataField="productName"
+          caption="Product"
+          [editorOptions]="{ readOnly: true }"
+        ></dxi-item>
+        <dxi-item
+          dataField="price"
+          caption="Price"
+          [colSpan]="1"
+          [editorOptions]="{ readOnly: true }"
+        ></dxi-item>
+        <dxi-item
+          dataField="quantity"
+          caption="Quantity"
+          [colSpan]="1"
+          [editorOptions]="{ readOnly: true }"
+        ></dxi-item>
+        <dxi-item
+          dataField="total"
+          caption="Total"
+          [colSpan]="1"
+          [editorOptions]="{ readOnly: true }"
+        ></dxi-item>
+      </dxi-item>
+      <dxi-item
+        itemType="group"
+        caption="Cancel Order Information"
+        [colSpan]="2"
+        [colCount]="2"
+      >
+        <dxi-item
+          dataField="cancelQty"
+          caption="Cancel Quantity"
+          editorType="dxNumberBox"
+          [editorOptions]="{
+            min: 1,
+            max: formData?.quantity
+          }"
+        >
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item
+          dataField="addToInventory"
+          caption="Add To Inventory"
+          editorType="dxLookup"
+          [editorOptions]="addToInventoryOptions"
+        >
+        </dxi-item>
+        <dxi-item
+          dataField="cancelReason"
+          caption="Cancel Reason"
+          editorType="dxTextArea"
+          [colSpan]="2"
+        >
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item
+        itemType="group"
+        caption="Admin Username and Password"
+        [colSpan]="2"
+        [colCount]="2"
+      >
+        <dxi-item dataField="email" caption="Email" [colSpan]="2">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+          <dxi-validation-rule type="email"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item
+          dataField="password"
+          caption="Password"
+          [editorOptions]="{ mode: 'password' }"
+          [colSpan]="2"
+        >
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+    </dx-form>
+  </div>
+</dx-popup>

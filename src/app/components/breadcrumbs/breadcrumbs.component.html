@@ -1,0 +1,6 @@
+<div *ngFor="let item of items;let f = first;let l = last" class="item">
+  <div class="text" [class.last]="l">
+    {{ item }}
+  </div>
+  <div class="mdi mdi-chevron-right" *ngIf="!l"></div>
+</div>

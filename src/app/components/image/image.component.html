@@ -1,0 +1,17 @@
+<input type="file" (change)="fileChanged($event)" #fileInput />
+<div class="hover-buttons">
+  <dx-button
+    text="Edit"
+    type="default"
+    [visible]="allowEditing"
+    (onClick)="edit()"
+  ></dx-button>
+  <dx-button
+    text="Delete"
+    type="default"
+    [visible]="allowDeleting"
+    (onClick)="delete()"
+  ></dx-button>
+</div>
+<!-- .hover-buttons -->
+<img [src]="defaultImg" alt="" />
