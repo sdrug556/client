@@ -23,8 +23,8 @@
     </dxi-item>
     <dxi-item itemType="simple" class="login-bottons-bottom">
       <dx-button class="mr-4" text="Login" (onClick)="submit($event, form)"></dx-button>
-      <dx-button text="Register" (onClick)="register()"></dx-button>
-      <a routerLink="/forgot-password" class="ml-auto underline">Forgot Password?</a>
+      <!-- <dx-button text="Register" (onClick)="register()"></dx-button> -->
+      <a href="#" class="ml-auto underline" (click)="forgotPassword($event)">Forgot Password?</a>
     </dxi-item>
   </dx-form>
 </div>

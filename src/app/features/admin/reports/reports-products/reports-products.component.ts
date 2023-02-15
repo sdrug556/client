@@ -35,9 +35,10 @@ export class ReportsProductsComponent implements OnInit {
         const today = +endOfToday();
         this.products = products.map((product: any) => {
           product.price = formatter.format(product.price) as any;
-          product.expiration = +product.expiration;
           product.isExpired = product.expiration < today;
           product.lowStock = product.stock <= product.reorderPoint;
+          product.expiration = new Date(+product.expiration);
+          product.createdDate = new Date(+product.createdDate);
           return product;
         });
         console.table(this.products);

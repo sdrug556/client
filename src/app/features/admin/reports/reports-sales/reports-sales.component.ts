@@ -42,7 +42,7 @@ export class ReportsSalesComponent implements OnInit {
               sale.quantity,
               sale.discount
             );
-            sale.createdDate = +sale.createdDate;
+            sale.createdDate = new Date(+sale.createdDate);
             return sale;
           });
         }),

@@ -34,7 +34,7 @@ export class AuthService {
           localStorage.setItem(USER_INFO_TOKEN, JSON.stringify(info));
           localStorage.setItem(ACCESS_TOKEN_KEY, x.body.token);
           return info;
-        })
+        }),
       ) as Observable<User>;
   }
 

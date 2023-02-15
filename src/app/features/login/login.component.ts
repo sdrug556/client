@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { UserService } from '@services/user.service';
 import { DxFormComponent } from 'devextreme-angular';
-import { finalize, of, catchError, first, delay } from 'rxjs';
+import notify from 'devextreme/ui/notify';
+import { catchError, delay, finalize, first, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -24,26 +25,28 @@ export class LoginComponent implements OnInit {
     const result = form.instance.validate();
     if (!result.isValid) return;
     this.loadingVisible = true;
-    this._authService.login(form.formData.email, form.formData.password)
+    this._authService
+      .login(form.formData.email, form.formData.password)
       .pipe(
         finalize(() => {
-          setTimeout(() => this.loadingVisible = false, 1000);
+          setTimeout(() => (this.loadingVisible = false), 1000);
         }),
         delay(1000),
         catchError((err) => {
+          notify('Invalid email or password', 'error', 3000);
           return of(err);
         }),
         first()
       )
-      .subscribe(user => {
+      .subscribe((user) => {
         if (user) {
           switch (+user.type) {
             case 1: // admin
               this._router.navigateByUrl('/admin');
-            break;
+              break;
             case 2: // cashier
               this._router.navigateByUrl('/cashier');
-            break;
+              break;
           }
         }
       });
@@ -51,5 +54,10 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     this._router.navigateByUrl('register');
+  }
+
+  forgotPassword(e: Event): void {
+    e.preventDefault();
+    notify('Please contact your administrator.', 'info', 5000);
   }
 }

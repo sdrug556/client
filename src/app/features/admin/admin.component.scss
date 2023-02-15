@@ -55,6 +55,10 @@ header {
   background-color: #eaeaea;
 }
 
+dx-scroll-view {
+  height: calc(100vh - 174px);
+}
+
 ::ng-deep app-admin dx-tree-view .dx-treeview-node {
   transition: color .2s ease-in;
   border-radius: $borderRadius;

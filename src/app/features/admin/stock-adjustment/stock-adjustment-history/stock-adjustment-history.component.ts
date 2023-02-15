@@ -20,7 +20,7 @@ export class StockAdjustmentHistoryComponent implements OnInit {
       .pipe(
         map((res) => {
           return res.map((x) => {
-            x.createdDate = numberToDate(+x.createdDate);
+            x.createdDate = new Date(+x.createdDate);
             return x;
           })
         })

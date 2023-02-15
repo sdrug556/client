@@ -1,6 +1,8 @@
 <div class="nav">
-  <div class="nav-info"></div><!-- .nav-info -->
-  <dx-tree-view
+  <div class="nav-info"></div>
+  <!-- .nav-info -->
+  <dx-scroll-view>
+    <dx-tree-view
       class="mt-6"
       itemsExpr="menu"
       keyExpr="id"
@@ -11,26 +13,22 @@
       [hoverStateEnabled]="false"
       (onItemClick)="onItemClick($event)"
     >
-    <div *dxTemplate="let d of 'item'">
-      <div class="item-container">
-        <span class="{{ d.icon }} menu-icon">
-        </span>
-        <span class="menu-title">
-          {{ d.title }}
-        </span>
-      </div><!-- .item-container -->
-    </div>
-  </dx-tree-view>
-</div><!-- .nav -->
+      <div *dxTemplate="let d of 'item'">
+        <div class="item-container">
+          <span class="{{ d.icon }} menu-icon"> </span>
+          <span class="menu-title"> {{ d.title }} </span>
+        </div>
+        <!-- .item-container -->
+      </div>
+    </dx-tree-view>
+  </dx-scroll-view>
+</div>
+<!-- .nav -->
 <div class="content" id="route-content">
   <header>
     <app-breadcrumbs></app-breadcrumbs>
     <app-notification class="ml-auto mr-4"></app-notification>
-    <app-userinfo
-      [name]="name"
-      [image]="image"
-      class="pr-4"
-      ></app-userinfo>
+    <app-userinfo [name]="name" [image]="image" class="pr-4"></app-userinfo>
   </header>
   <dx-scroll-view>
     <div [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''">
@@ -38,4 +36,5 @@
     </div>
     <!-- <router-outlet></router-outlet> -->
   </dx-scroll-view>
-</div><!-- .content -->
+</div>
+<!-- .content -->
