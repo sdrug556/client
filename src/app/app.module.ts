@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '@services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ApiurlInterceptor } from './interceptor/apiurl.interceptor';
 import { HttpAuthorizationInterceptor } from './interceptor/http-authorization.interceptor';
 
 @NgModule({
@@ -23,7 +24,13 @@ import { HttpAuthorizationInterceptor } from './interceptor/http-authorization.i
       useClass: HttpAuthorizationInterceptor,
       multi: true,
       deps: [AuthService]
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiurlInterceptor,
+      multi: true,
+      deps: [AuthService]
+    },
   ],
   bootstrap: [AppComponent]
 })

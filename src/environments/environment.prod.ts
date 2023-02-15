@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   url: 'hypersaver-drugstore.web.app',
-  apiUrl: 'http://localhost:4201'
+  apiUrl: 'https://pos-server-vq2z.onrender.com'
 };

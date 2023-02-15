@@ -6,7 +6,7 @@ import { EditCanceledEvent, EditingStartEvent, InitNewRowEvent, RowRemovedEvent,
 import { ComponentBase } from 'src/app/components/component-base';
 import notify from 'devextreme/ui/notify';
 import { handleOnSaving } from 'src/app/utils';
-import { first } from 'rxjs';
+import { first, map } from 'rxjs';
 
 @Component({
   selector: 'app-users-manager',
@@ -44,7 +44,6 @@ export class UsersManagerComponent extends ComponentBase implements OnInit, OnDe
 
   onInitNewRow(e: InitNewRowEvent): void {
     this.popUpLabel = 'Add User';
-    console.log(e);
   }
 
   onEditingStart(e: EditingStartEvent): void {
@@ -69,9 +68,17 @@ export class UsersManagerComponent extends ComponentBase implements OnInit, OnDe
 
   private _getAll(): void {
     this._usersService.getAll()
-      .pipe(first())
+      .pipe(
+        first(),
+        map((users: any[]) => users?.map((user) => {
+          if (user.birthday) { user.birthday = new Date(+user.birthday); }
+          if (user.createdDate) { user.createdDate = new Date(+user.createdDate); }
+          return user;
+        }))
+      )
       .subscribe(users => {
-        this.users = users;
+        this.users = users ?? [];
+        console.log(this.users);
       });
   }
 

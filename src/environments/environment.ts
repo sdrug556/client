@@ -7,7 +7,7 @@
 export const environment = {
   production: false,
   url: 'http://localhost:4200',
-  apiUrl: 'http://localhost:4201'
+  apiUrl: 'https://pos-server-vq2z.onrender.com'
 };
 
 /*
