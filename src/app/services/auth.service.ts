@@ -27,7 +27,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<User> {
     const url = environment.apiUrl + '/login';
-    return this._http.post(url, { email, password, date: Date.now() }, { observe: 'response' })
+    return this._http.post(url, { email, password, datenow: Date.now() }, { observe: 'response' })
       .pipe(
         map((x: any) => {
           const info = tryJsonParse<any>(atob(x.body.token.split('.')[1]))?.user;
