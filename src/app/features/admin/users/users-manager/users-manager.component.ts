@@ -48,7 +48,7 @@ export class UsersManagerComponent extends ComponentBase implements OnInit, OnDe
 
   onEditingStart(e: EditingStartEvent): void {
     this.popUpLabel = 'Edit User';
-    this.currentUserIdEditing = e.data.uid === this.userCache?.id;
+    this.currentUserIdEditing = e.data.id === this.userCache?.id;
   }
 
   onEditCanceled(e: EditCanceledEvent): void {

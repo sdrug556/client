@@ -72,7 +72,9 @@
         <dxi-item dataField="phone" editorType="dxNumberBox">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-item>
-        <dxi-item dataField="type">
+        <dxi-item dataField="type"
+                  [disabled]="currentUserIdEditing"
+          >
           <dxo-lookup
             [dataSource]="userType"
             valueExpr="value"
