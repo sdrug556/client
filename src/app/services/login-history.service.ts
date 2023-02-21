@@ -20,7 +20,7 @@ export class LoginHistoryService extends BaseService<LoginHistory> {
     .pipe(
       map((histories) => {
         return histories.map((history) => {
-          history.createdDate = numberToDate(+history.createdDate);
+          history.createdDate = new Date(+history.createdDate);
           return history;
         });
       })

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SalesToday } from '@types';
 import { SalesService } from '@services/sales.service';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { DxFormComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 
@@ -30,13 +31,17 @@ export class CashierTodaySalesComponent implements OnInit {
         return;
       }
       this.salesService.cancelSale(this.dxForm.formData)
+        .pipe(
+          catchError((err) => {
+            notify('Incorrect Admin Username/Password', 'error', 3000);
+            return throwError(err);
+          })
+        )
         .subscribe((isCancelled) => {
           if (isCancelled) {
             this.cancelOrderPopupVisible = false;
             notify('successfully voided the order.','success', 3000);
             this._load();
-          } else {
-            notify('Incorrect Admin Username/Password', 'error', 3000);
           }
         });
     }

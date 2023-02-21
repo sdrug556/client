@@ -1,7 +1,8 @@
 import { SavingEvent } from 'devextreme/ui/data_grid';
 import notify from 'devextreme/ui/notify';
 import { Properties as dxToastOptions } from 'devextreme/ui/toast';
-import { first, Observable, catchError, of } from 'rxjs';
+import * as htmlToPdf from 'html2pdf.js';
+import { catchError, first, Observable, of } from 'rxjs';
 
 export function currencyFormatter(value: any): string {
   return new Intl.NumberFormat('en-PH', {
@@ -57,11 +58,11 @@ export function createArrayStore<T>(dataSource: T[], keyExpr = 'id'): any {
 }
 
 export function dataDateToUnix(data: any): void {
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach((key) => {
     if (data[key] instanceof Date) {
       data[key] = dateToNumber(data[key]);
     }
-  })
+  });
   return data;
 }
 
@@ -137,4 +138,19 @@ export function handleOnSaving(
       });
       break;
   }
+}
+
+export const calculateVAT = (total: number): number => {
+  return total * 0.12;
+};
+
+export function printReciept(name: string, element: HTMLElement): any {
+  const options = {
+    margin: 1,
+    filename: name,
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+  };
+
+  return htmlToPdf().set(options).from(element).save();
 }

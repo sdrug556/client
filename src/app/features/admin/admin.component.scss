@@ -56,7 +56,7 @@ header {
 }
 
 dx-scroll-view {
-  height: calc(100vh - 174px);
+  height: calc(100vh - $headerHeight);
 }
 
 ::ng-deep app-admin dx-tree-view .dx-treeview-node {

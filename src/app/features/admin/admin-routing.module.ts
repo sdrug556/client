@@ -72,6 +72,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'settings',
+        data: { breadcrumbs: 'Settings' },
+        loadChildren: () =>
+          import('@features/admin/settings/settings.module').then(
+            (m) => m.SettingsModule
+          ),
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'dashboard',

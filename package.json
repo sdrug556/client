@@ -22,6 +22,8 @@
     "@angular/router": "~13.2.0",
     "@ngneat/tailwind": "^7.0.3",
     "firebase": "^9.6.6",
+    "html2pdf.js": "^0.9.0",
+    "ngx-quill": "^15.0.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

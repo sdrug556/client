@@ -3,6 +3,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import '~quill/dist/quill.snow.css';
+
+
 body {
   @apply p-0 m-0;
 }

@@ -1,16 +1,18 @@
 import {
-    AfterViewInit,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { SettingNoteType } from '@services/settings.service';
 import { DxTreeViewComponent } from 'devextreme-angular';
 import { ContentReadyEvent, ItemClickEvent } from 'devextreme/ui/list';
 import { filter } from 'rxjs';
 import { ComponentBase } from 'src/app/components/component-base';
+import { NotesViewerService } from 'src/app/components/notes-viewer/notes-viewer.service';
 import { routeAnimations } from './admin.animations';
 
 @Component({
@@ -62,14 +64,14 @@ export class AdminComponent
         {
           title: 'User Manager',
           url: 'users/manager',
-          icon: 'mdi mdi-account-group'
+          icon: 'mdi mdi-account-group',
         },
         {
           title: 'Login History',
           url: 'users/login-history',
-          icon: 'mdi mdi-history'
-        }
-      ]
+          icon: 'mdi mdi-history',
+        },
+      ],
     },
     {
       title: 'Reports',
@@ -83,15 +85,27 @@ export class AdminComponent
         {
           title: 'Products Report',
           url: 'reports/products',
-          icon: 'mdi mdi-package-variant'
-        }
+          icon: 'mdi mdi-package-variant',
+        },
+        {
+          title: 'Transaction Report',
+          url: 'reports/transactions',
+          icon: 'mdi mdi-cash-multiple',
+          visible: this._authService.userInfo.isOwner
+        },
       ],
     },
-    // {
-    //   title: 'Profile',
-    //   url: 'profile',
-    //   icon: 'mdi mdi-account',
-    // },
+    {
+      title: 'Settings',
+      icon: 'mdi mdi-wrench',
+      menu: [
+        {
+          title: 'Notes',
+          url: 'settings/notes',
+          icon: 'mdi mdi-note-text-outline',
+        },
+      ],
+    },
   ];
 
   onItemClick(e: ItemClickEvent): void {
@@ -99,7 +113,7 @@ export class AdminComponent
       return;
     }
     this._router.navigate([e.itemData.url], {
-      relativeTo: this._ar,
+      relativeTo: this._activatedRoute,
     });
   }
 
@@ -117,6 +131,17 @@ export class AdminComponent
     const userInfo = this._authService.userInfo;
     this.name = `${userInfo?.lastName} ${userInfo?.firstName}`;
     this.image = null;
+
+    const showNote = Boolean(
+      this._activatedRoute.snapshot.queryParams['showNote']
+    );
+    if (showNote) {
+      this._noteViewerService.show(SettingNoteType.Admin);
+      this._router.navigate(['.'], {
+        queryParams: { showNote: null },
+        relativeTo: this._activatedRoute,
+      });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -142,7 +167,7 @@ export class AdminComponent
         }
         const item = menu[i];
         if (this._router.url === `/admin/${item.url}`) {
-        // if (this._router.url?.endsWith(item.url)) {
+          // if (this._router.url?.endsWith(item.url)) {
           activeItem = item;
         } else if (item.menu) {
           activeItem = findActiveRoute(item.menu);
@@ -157,7 +182,12 @@ export class AdminComponent
     return false;
   }
 
-  constructor(private _router: Router, private _ar: ActivatedRoute, private _authService: AuthService) {
+  constructor(
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _authService: AuthService,
+    private _noteViewerService: NotesViewerService,
+  ) {
     super();
   }
 }

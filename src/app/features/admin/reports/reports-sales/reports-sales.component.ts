@@ -20,7 +20,6 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-reports-sales',
   templateUrl: './reports-sales.component.html',
   styleUrls: ['./reports-sales.component.scss'],
-  host: { class: 'default-app-style' },
 })
 export class ReportsSalesComponent implements OnInit {
   @ViewChild(DxDataGridComponent) dxDataGrid: DxDataGridComponent;
@@ -36,13 +35,21 @@ export class ReportsSalesComponent implements OnInit {
       .getAll()
       .pipe(
         map((sales) => {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'PHP',
+        });
           return sales.map((sale: any) => {
             sale.total = this._caculateProductTotal(
               sale.price,
               sale.quantity,
               sale.discount
             );
+            sale.total = formatter.format(sale.total);
+            sale.createdDateFilter = +sale.createdDate;
             sale.createdDate = new Date(+sale.createdDate);
+            sale.discount = `${sale.discount}%`;
+            sale.price = formatter.format(sale.price);
             return sale;
           });
         }),
@@ -78,30 +85,30 @@ export class ReportsSalesComponent implements OnInit {
     switch (this.activeButton) {
       case 'Sales Today':
         this.dxDataGrid.instance.filter([
-        ['createdDate', '<', +endOfToday()],
+        ['createdDateFilter', '<', +endOfToday()],
         'and',
-        ['createdDate', '>', +startOfToday()],
+        ['createdDateFilter', '>', +startOfToday()],
       ]);
       break;
       case 'Sales this Week':
         this.dxDataGrid.instance.filter([
-        ['createdDate', '<', +startOfWeek(new Date())],
+        ['createdDateFilter', '>', +startOfWeek(new Date())],
         'and',
-        ['createdDate', '>', +endOfWeek(new Date())],
+        ['createdDateFilter', '<', +endOfWeek(new Date())],
       ]);
       break;
       case 'Sales this Month':
         this.dxDataGrid.instance.filter([
-        ['createdDate', '<', +endOfMonth(new Date())],
+        ['createdDateFilter', '<', +endOfMonth(new Date())],
         'and',
-        ['createdDate', '>', +startOfMonth(new Date())],
+        ['createdDateFilter', '>', +startOfMonth(new Date())],
       ]);
       break;
       case 'Sales this Year':
         this.dxDataGrid.instance.filter([
-        ['createdDate', '<', +endOfYear(new Date())],
+        ['createdDateFilter', '<', +endOfYear(new Date())],
         'and',
-        ['createdDate', '>', +startOfYear(new Date())],
+        ['createdDateFilter', '>', +startOfYear(new Date())],
       ]);
       break;
       case 'Sales last Month':

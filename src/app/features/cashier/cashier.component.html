@@ -1,11 +1,11 @@
 <div class="header flex w-full">
   <div class="flex w-full h-full">
     <section>
-      <div><b>Transaction NO.</b></div>
+      <div><b>Invoice NO.</b></div>
       <div class="text-3xl font-black">{{ transactionNo ?? '' }}</div>
     </section>
     <section class="ml-6">
-      <div><b>Transaction Date.</b></div>
+      <div><b>Invoice Date.</b></div>
       <div class="text-3xl font-black">
         {{ transactionDate ?? '' | date:'medium' }}
       </div>
@@ -142,6 +142,11 @@
         (onClick)="todaySales()"
       ></dx-button>
       <dx-button
+        text="Note"
+        icon="mdi mdi-note-text-outline"
+        (click)="showNote()"
+      ></dx-button>
+      <dx-button
         text="Logout"
         icon="mdi mdi-logout"
         (click)="logout()"
@@ -151,22 +156,22 @@
       <section classs="pb-2">
         <span class="text-xl">Sales Total</span>
         <br />
-        <span class="text-4xl">{{ totalSales | currency }}</span>
+        <span class="text-4xl">{{ totalSales | currency:'PHP' }}</span>
       </section>
       <section classs="pb-2">
         <span class="text-xl">Discount</span>
         <br />
-        <span class="text-4xl">{{ discounted | currency }}</span>
+        <span class="text-4xl">{{ discounted | currency:'PHP' }}</span>
       </section>
       <section classs="pb-2">
         <span class="text-xl">VAT</span>
         <br />
-        <span class="text-4xl">0</span>
+        <span class="text-4xl">{{ vat | currency:'PHP' }}</span>
       </section>
       <section classs="pb-2">
         <span class="text-xl">VATABLE</span>
         <br />
-        <span class="text-4xl">0</span>
+        <span class="text-4xl">{{ vatable | currency:'PHP' }}</span>
       </section>
     </div>
   </div>
@@ -193,7 +198,7 @@
       <div class="dx-field">
         <div class="dx-field-label">Total</div>
         <div class="dx-field-value text-xl">
-          {{ totalSales | currency }}
+          {{ totalSales | currency:'PHP' }}
         </div>
       </div>
     </section>
@@ -204,9 +209,9 @@
           <dx-number-box
             #cashNumberbox
             (onValueChanged)="cashValueChanged($event, changeNumberbox)"
-            format="$ #,##0.##"
+            format="₱ #,##0.##"
             valueChangeEvent="input"
-            ></dx-number-box>
+          ></dx-number-box>
         </div>
       </div>
     </section>
@@ -215,22 +220,25 @@
         <div class="dx-field-label">Change</div>
         <div class="dx-field-value">
           <dx-number-box
-              #changeNumberbox
-              width="100%"
-              format="$ #,##0.##"
-              [disabled]="true"
-            ></dx-number-box>
+            #changeNumberbox
+            width="100%"
+            format="₱ #,##0.##"
+            [disabled]="true"
+          ></dx-number-box>
         </div>
       </div>
     </section>
     <section class="mt-4">
       <dx-button
-          [disabled]="cashNumberbox.value < totalSales"
-          width="100%"
-          text="Settle Payment"
-          (onClick)="settlePayment()"
-        >
+        [disabled]="cashNumberbox.value < totalSales"
+        width="100%"
+        text="Settle Payment"
+        (onClick)="settlePayment()"
+      >
       </dx-button>
     </section>
   </div>
 </dx-popup>
+<app-notes-viewer></app-notes-viewer>
+<div #toPrint>
+</div>

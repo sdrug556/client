@@ -42,10 +42,10 @@ export class LoginComponent implements OnInit {
         if (user) {
           switch (+user.type) {
             case 1: // admin
-              this._router.navigateByUrl('/admin');
+              this._router.navigateByUrl('/admin?showNote=true');
               break;
             case 2: // cashier
-              this._router.navigateByUrl('/cashier');
+              this._router.navigateByUrl('/cashier?showNote=true');
               break;
           }
         }

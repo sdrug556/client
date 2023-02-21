@@ -24,6 +24,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'transactions',
+        data: { breadcrumbs: 'Transactions' },
+        loadChildren: () =>
+          import('./reports-transaction/reports-transaction.module').then(
+            (m) => m.ReportsTransactionModule
+          ),
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'sales'

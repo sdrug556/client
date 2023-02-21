@@ -13,11 +13,7 @@
 >
   <dxi-column dataField="firstName"></dxi-column>
   <dxi-column dataField="lastName"></dxi-column>
-  <dxi-column
-    dataField="birthday"
-    caption="Birthday"
-    dataType="date"
-  >
+  <dxi-column dataField="birthday" caption="Birthday" dataType="date">
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
   <dxi-column dataField="type" caption="Type">
@@ -43,6 +39,11 @@
     <dxi-validation-rule type="required"></dxi-validation-rule>
     <dxi-validation-rule type="email"> </dxi-validation-rule>
   </dxi-column>
+  <dxi-column
+    dataField="isOwner"
+    caption="Is Owner"
+    editorType="dxSwitch"
+  ></dxi-column>
   <dxi-column dataField="password" [visible]="false"></dxi-column>
 
   <dxo-editing
@@ -72,9 +73,7 @@
         <dxi-item dataField="phone" editorType="dxNumberBox">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-item>
-        <dxi-item dataField="type"
-                  [disabled]="currentUserIdEditing"
-          >
+        <dxi-item dataField="type" [disabled]="currentUserIdEditing">
           <dxo-lookup
             [dataSource]="userType"
             valueExpr="value"
@@ -106,6 +105,11 @@
         <dxi-item
           dataField="allowLogin"
           [editorOptions]="{ disabled: currentUserIdEditing }"
+        >
+        </dxi-item>
+        <dxi-item
+          dataField="isOwner"
+          editorType="dxSwitch"
         >
         </dxi-item>
       </dxi-item>

@@ -10,6 +10,7 @@ import {
 import { BreadcrumbsModule } from 'src/app/components/breadcrumbs/breadcrumbs.module';
 import { UserinfoModule } from 'src/app/components/userinfo/userinfo.module';
 import { NotificationModule } from 'src/app/components/notification/notification.module';
+import { NotesViewerModule } from 'src/app/components/notes-viewer/notes-viewer.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NotificationModule } from 'src/app/components/notification/notification
     DxTreeViewModule,
     BreadcrumbsModule,
     UserinfoModule,
-    NotificationModule
+    NotificationModule,
+    NotesViewerModule,
   ]
 })
 export class AdminModule { }

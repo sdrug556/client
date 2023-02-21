@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersManagerComponent } from './users-manager.component';
 import { UsersManagerRoutingModule } from './users-manager-routing.module';
-import { DxDataGridModule, DxDateBoxModule } from 'devextreme-angular';
+import { DxDataGridModule, DxDateBoxModule, DxSwitchModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [
@@ -13,6 +13,7 @@ import { DxDataGridModule, DxDateBoxModule } from 'devextreme-angular';
     UsersManagerRoutingModule,
     DxDataGridModule,
     DxDateBoxModule,
+    DxSwitchModule,
   ]
 })
 export class UsersManagerModule { }

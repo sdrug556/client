@@ -31,7 +31,7 @@
             <span class="text-xl font-black">{{ product.name }}</span>
             <br>
             <div>
-              <span class="text-md">{{ product.price | currency }}</span>
+              <span class="text-md">{{ product.price | currency:'PHP' }}</span>
               <span class="mx-3 text-gray-300"> | </span>
               <span>Stocks:</span>
               <span class="text-lg text-black ml-2">{{ product.stock }}</span>

@@ -1,0 +1,15 @@
+<dx-popup
+  [showTitle]="true"
+  title="Notes"
+  [dragEnabled]="true"
+  [closeOnOutsideClick]="false"
+  [showCloseButton]="true"
+  [visible]="visible"
+  (onHidden)="onHidden($event)"
+>
+  <div *dxTemplate="let d of 'content'">
+    <dx-scroll-view>
+      <quill-view [content]="content" theme="snow"> </quill-view>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

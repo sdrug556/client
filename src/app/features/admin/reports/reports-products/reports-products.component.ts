@@ -9,8 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-reports-products',
   templateUrl: './reports-products.component.html',
-  styleUrls: ['./reports-products.component.scss'],
-  host: { class: 'default-app-style' },
+  styleUrls: ['./reports-products.component.scss']
 })
 export class ReportsProductsComponent implements OnInit {
 
@@ -36,7 +35,7 @@ export class ReportsProductsComponent implements OnInit {
         this.products = products.map((product: any) => {
           product.price = formatter.format(product.price) as any;
           product.isExpired = product.expiration < today;
-          product.lowStock = product.stock <= product.reorderPoint;
+          product.lowStock = product.stock <= product.reorderPoint || product.stock < 0;
           product.expiration = new Date(+product.expiration);
           product.createdDate = new Date(+product.createdDate);
           return product;

@@ -27,6 +27,7 @@ export interface Product {
 }
 
 export interface ProductTransaction extends Product {
+  cash: number;
   total: number;
   discount: number;
   qty: number;
@@ -35,6 +36,7 @@ export interface ProductTransaction extends Product {
 }
 
 export interface User {
+  isOwner?: boolean;
   id: string | number;
   name: string;
   firstName: string;
