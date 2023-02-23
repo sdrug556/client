@@ -67,7 +67,6 @@ export class CashierProductAddComponent implements OnInit {
           return products.map(product => {
             const selectedProduct = this.selectedProducts.find(p => p.id === product.id);
             if (selectedProduct) { product.quantity = selectedProduct.quantity; }
-            console.log(product);
             return product;
           })
         })

@@ -78,7 +78,6 @@ export class UsersManagerComponent extends ComponentBase implements OnInit, OnDe
       )
       .subscribe(users => {
         this.users = users ?? [];
-        console.log(this.users);
       });
   }
 

@@ -30,11 +30,9 @@ export class RegisterComponent implements OnInit {
 
   passwordContentReady(e: any): void {
     this.passwordInput = e.component;
-    console.log(this.passwordInput);
   }
 
   passwordComparison = () => {
-    console.log(this.passwordInput?.option('value'));
     return this.passwordInput?.option('value');
   };
 
