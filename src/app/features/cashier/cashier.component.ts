@@ -61,6 +61,11 @@ export class CashierComponent implements OnInit {
 
   selectedProducts: ProductTransaction[] = [];
 
+  userDiscount = [{
+    text: 'Senior/PWD',
+    value: 5
+  }]
+
 
   constructor(
     private _authService: AuthService,

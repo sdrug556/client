@@ -53,12 +53,19 @@
         format="currency"
         [allowEditing]="false"
       ></dxi-column>
-      <dxi-column
-        dataField="discount"
-        caption="Discount(%)"
-        width="auto"
-        [allowEditing]="true"
-      ></dxi-column>
+      <!-- <dxi-column -->
+      <!--   dataField="discount" -->
+      <!--   caption="Discount(%)" -->
+      <!--   width="auto" -->
+      <!--   [allowEditing]="true" -->
+      <!-- ></dxi-column> -->
+      <dxi-column dataField="discount" caption="Discount">
+        <dxo-lookup
+          [dataSource]="userDiscount"
+          valueExpr="value"
+          displayExpr="text"
+        ></dxo-lookup>
+      </dxi-column>
       <dxi-column
         dataField="total"
         caption="Total"
@@ -240,5 +247,4 @@
   </div>
 </dx-popup>
 <app-notes-viewer></app-notes-viewer>
-<div #toPrint>
-</div>
+<div #toPrint></div>
