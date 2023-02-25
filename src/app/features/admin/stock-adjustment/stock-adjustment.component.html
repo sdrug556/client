@@ -5,9 +5,10 @@
   [colCount]="1"
   width="auto"
   class="shadow-xl p-6"
+  (onContentReady)="onSelectionChanged($event)"
 >
   <dxi-item itemType="tabbed">
-    <dxo-tab-panel-options [deferRendering]="true" width="100%">
+    <dxo-tab-panel-options>
     </dxo-tab-panel-options>
     <dxi-tab title="Adjustment">
       <dxi-item
@@ -88,8 +89,7 @@
     </dxi-tab>
     <dxi-tab title="History">
       <dxi-item>
-        <app-stock-adjustment-history>
-        </app-stock-adjustment-history>
+        <app-stock-adjustment-history> </app-stock-adjustment-history>
       </dxi-item>
     </dxi-tab>
   </dxi-item>

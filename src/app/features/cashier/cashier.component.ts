@@ -1,10 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { ProductService } from '@services/product.service';
 import { SalesService } from '@services/sales.service';
+import { ScannerService } from '@services/scanner.service';
 import { SettingNoteType } from '@services/settings.service';
 import { Product, ProductTransaction } from '@types';
-import { format } from 'date-fns';
 import {
   DxDataGridComponent,
   DxNumberBoxComponent,
@@ -14,11 +21,13 @@ import { RowPreparedEvent } from 'devextreme/ui/data_grid';
 import { confirm } from 'devextreme/ui/dialog';
 import notify from 'devextreme/ui/notify';
 import clone from 'lodash-es/clone';
-import { first } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { filter, first, map, mergeMap, tap } from 'rxjs/operators';
 import { NotesViewerService } from 'src/app/components/notes-viewer/notes-viewer.service';
+import { ProductQuantityService } from 'src/app/components/product-quantity/product-quantity.service';
+import { calculateVAT } from 'src/app/utils';
 import { CashierProductAddComponent } from './cashier-product-add/cashier-product-add.component';
 import { CashierTodaySalesComponent } from './cashier-today-sales/cashier-today-sales.component';
-import { calculateVAT, printReciept } from 'src/app/utils';
 
 @Component({
   selector: 'app-cashier',
@@ -61,11 +70,16 @@ export class CashierComponent implements OnInit {
 
   selectedProducts: ProductTransaction[] = [];
 
-  userDiscount = [{
-    text: 'Senior/PWD',
-    value: 5
-  }]
+  userDiscount = [
+    {
+      text: 'Senior/PWD',
+      value: 5,
+    },
+  ];
 
+  products: Product[];
+
+  private _sub: Subscription;
 
   constructor(
     private _authService: AuthService,
@@ -73,25 +87,100 @@ export class CashierComponent implements OnInit {
     private _noteViewerService: NotesViewerService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-  ) { }
+    private _scanner: ScannerService,
+    private _productService: ProductService,
+    private _productQuantityService: ProductQuantityService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.dateAndTimeNowId = setInterval(() => {
-      this.dateAndTimeNow = new Date();
-    }, 1000);
-
-    const showNote = Boolean(this._activatedRoute.snapshot.queryParams['showNote']);
+    const showNote = Boolean(
+      this._activatedRoute.snapshot.queryParams['showNote']
+    );
     if (showNote) {
       this._noteViewerService.show(SettingNoteType.Cashier);
       this._router.navigate(['.'], {
         queryParams: { showNote: null },
-        relativeTo: this._activatedRoute
+        relativeTo: this._activatedRoute,
       });
     }
+
+    this._iniitializeScanning();
   }
 
   ngOnDestroy(): void {
     clearInterval(this.dateAndTimeNowId);
+    this._scanner.detach('cashier');
+    this._sub?.unsubscribe();
+  }
+
+  private _iniitializeScanning(): void {
+    if (this._sub) {
+      this._sub.unsubscribe();
+      this._sub = null;
+    }
+    // @ts-ignore-next
+    window.s = (id: string) => this._scanner.simulate('cashier', id);
+    this._sub = this._loadProducts().subscribe((products) => {
+      // this._scanner.detach('cashier');
+      this._scanner
+        .initialize('cashier', document)
+        .pipe(
+          tap(() => {
+            if (!this.isNewTransaction) {
+              this.newTransaction();
+            }
+          }),
+          filter(({ code }) => {
+            if (
+              this.selectedProducts.findIndex((p) => p.barcode === code) > -1
+            ) {
+              notify('Product already added', 'warning', 3000);
+              return false;
+            }
+            return true;
+          }),
+          map(({ code }) => {
+            return {
+              product: this.products.find((p) => p.barcode === code),
+              code,
+            };
+          }),
+          mergeMap((result) => {
+            if (!result.product) {
+              notify(
+                `Product with barcode of: ${result.code}`,
+                'warning',
+                3000
+              );
+              return of(null);
+            }
+            return this._productQuantityService.show(result.product.stock).pipe(
+              first(),
+              map((qty) => {
+                result.product.quantity = qty;
+                return result.product;
+              })
+            );
+          })
+        )
+        .subscribe((result) => {
+          if (result) {
+            this.onAddNewProduct([result] as ProductTransaction[]);
+          }
+        });
+    });
+
+  }
+
+  private _loadProducts(): Observable<Product[]> {
+    return this._productService.getAll().pipe(
+      first(),
+      map((products) => {
+        this.products = products.filter((p) => p.stock > 0);
+        return products;
+      })
+    );
   }
 
   private _calculateTotal(
@@ -187,7 +276,9 @@ export class CashierComponent implements OnInit {
             <td style="text-align: left">Amount Tendered</td>
             <td></td>
             <td></td>
-            <td style="text-align: left">${formatter.format(this.changeNumberbox.value)}</td>
+            <td style="text-align: left">${formatter.format(
+              this.changeNumberbox.value
+            )}</td>
           </tr>
           <tr>
             <td style="text-align: left">Vatable</td>
@@ -199,7 +290,9 @@ export class CashierComponent implements OnInit {
             <td style="text-align: left">Change</td>
             <td></td>
             <td></td>
-            <td style="text-align: left">${formatter.format(this.changeNumberbox.value)}</td>
+            <td style="text-align: left">${formatter.format(
+              this.changeNumberbox.value
+            )}</td>
           </tr>
           <tr>
             <td style="text-align: left">VAT</td>
@@ -217,7 +310,9 @@ export class CashierComponent implements OnInit {
             <td>Casher Name:</td>
             <td></td>
             <td></td>
-            <td style="text-align: left">${this._authService.userInfo.firstName} ${this._authService.userInfo.lastName}</td>
+            <td style="text-align: left">${
+              this._authService.userInfo.firstName
+            } ${this._authService.userInfo.lastName}</td>
           </tr>
         </tfoot>
       </table>
@@ -375,11 +470,10 @@ export class CashierComponent implements OnInit {
         this._printReciept();
         this.cancelTransaction();
         this._calculateTotalSales([]);
+        this._loadProducts().subscribe();
       });
   }
-
   showNote(): void {
     this._noteViewerService.show(SettingNoteType.Cashier);
   }
-
 }

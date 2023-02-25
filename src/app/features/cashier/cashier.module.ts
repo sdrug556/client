@@ -14,6 +14,7 @@ import {
   DxValidatorModule,
 } from 'devextreme-angular';
 import { NotesViewerModule } from 'src/app/components/notes-viewer/notes-viewer.module';
+import { ProductQuantityModule } from 'src/app/components/product-quantity/product-quantity.module';
 import { CashierProductAddComponent } from './cashier-product-add/cashier-product-add.component';
 import { CashierRoutingModule } from './cashier-routing.module';
 import { CashierTodaySalesComponent } from './cashier-today-sales/cashier-today-sales.component';
@@ -40,6 +41,7 @@ import { CashierComponent } from './cashier.component';
     DxLookupModule,
     DxTextAreaModule,
     NotesViewerModule,
+    ProductQuantityModule,
   ],
 })
 export class CashierModule {}

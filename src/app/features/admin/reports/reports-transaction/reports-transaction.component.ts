@@ -167,6 +167,11 @@ export class ReportsTransactionComponent implements OnInit {
 
   onDateFilterChanged(e: any): void {
     const dataSource = this.dxList.instance.getDataSource();
+    if (!e.value) {
+      dataSource.filter(null);
+      dataSource.load();
+      return;
+    }
     const startOfDate = +startOfDay(e.value);
     const endOfDate = +endOfDay(e.value);
     dataSource.filter([

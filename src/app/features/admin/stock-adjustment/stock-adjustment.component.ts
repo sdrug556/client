@@ -11,6 +11,7 @@ import { HiddenEvent, ShowingEvent } from 'devextreme/ui/popup';
 import { finalize, first } from 'rxjs';
 import { ComponentBase } from 'src/app/components/component-base';
 import { createArrayStore } from 'src/app/utils';
+import { StockAdjustmentHistoryComponent } from './stock-adjustment-history/stock-adjustment-history.component';
 
 @Component({
   selector: 'app-stock-adjustment',
@@ -22,6 +23,8 @@ export class StockAdjustmentComponent extends ComponentBase implements OnInit {
   @ViewChild('productsDatagrid') productsDatagrid: DxDataGridComponent;
 
   @ViewChild(DxPopupComponent) dxPopup: DxPopupComponent;
+
+  @ViewChild(StockAdjustmentHistoryComponent) history: StockAdjustmentHistoryComponent;
 
   showLoading = false;
 
@@ -122,7 +125,20 @@ export class StockAdjustmentComponent extends ComponentBase implements OnInit {
         )
         .subscribe(() => {
           notify('Successfully adjust stocks.', 'success', 3000);
+          this.selectedProducts = [];
+          this.formData.supplier = null;
         });
     }
+
   }
+
+  onSelectionChanged(e: any): void {
+    setTimeout(() => {
+      const el = e.element as HTMLElement;
+      el.querySelectorAll('.dx-tabpanel-tabs .dx-item')?.[1].addEventListener('click', () => {
+        this.history.load();
+      });
+    });
+  }
+
 }

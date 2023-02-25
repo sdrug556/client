@@ -1,33 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdjustmentStockService } from '@services/adjustmentstock.service';
 import { AdjustmentStock } from '@types';
-import { map } from 'rxjs/operators';
-import { numberToDate } from 'src/app/utils';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stock-adjustment-history',
   templateUrl: './stock-adjustment-history.component.html',
-  styleUrls: ['./stock-adjustment-history.component.scss']
+  styleUrls: ['./stock-adjustment-history.component.scss'],
 })
-export class StockAdjustmentHistoryComponent implements OnInit {
-
+export class StockAdjustmentHistoryComponent {
   adjustments: AdjustmentStock[];
 
-  constructor(private _adjustmentService: AdjustmentStockService) { }
+  constructor(private _adjustmentService: AdjustmentStockService) {}
 
-  ngOnInit(): void {
-    this._adjustmentService.getAll()
+  load(): void {
+    this._adjustmentService
+      .getAll()
       .pipe(
+        take(1),
         map((res) => {
           return res.map((x) => {
             x.createdDate = new Date(+x.createdDate);
             return x;
-          })
+          });
         })
       )
-      .subscribe(adjustments => {
+      .subscribe((adjustments) => {
         this.adjustments = adjustments;
       });
   }
-
 }

@@ -35,7 +35,9 @@
               "node_modules/devextreme/dist/css/dx.material.blue.light.css",
               "node_modules/@mdi/font/css/materialdesignicons.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/onscan.js/onscan.min.js"
+            ]
           },
           "configurations": {
             "production": {

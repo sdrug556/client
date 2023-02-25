@@ -61,6 +61,12 @@
     [allowEditing]="false"
   >
   </dxi-column>
+  <dxi-column
+    dataField="barcode"
+    caption="Barcode"
+    dataType="number"
+  >
+  </dxi-column>
 
   <dxo-editing
     mode="popup"
@@ -112,6 +118,7 @@
         <!-- <dxi-item dataField="status" [editorOptions]="{ dataType: 'boolean' }"> -->
         <!-- </dxi-item> -->
         <dxi-item dataField="reorderPoint"> </dxi-item>
+        <dxi-item dataField="barcode"> </dxi-item>
       </dxi-item>
     </dxo-form>
   </dxo-editing>

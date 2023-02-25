@@ -11,6 +11,7 @@ export interface Supplier {
 }
 
 export interface Product {
+  barcode?: string;
   qty: number;
   discount: number;
   id: string | number;

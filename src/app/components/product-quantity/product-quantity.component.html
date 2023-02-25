@@ -1,0 +1,19 @@
+<dx-popup
+    title="Product Quantity"
+    [visible]="visible"
+    maxWidth="300px"
+    maxHeight="300px"
+    height="auto"
+    (onHidden)="onHidden()"
+  >
+  <div *dxTemplate="let d of 'content'">
+    <form (submit)="submit($event)">
+      <div>
+        <dx-number-box [min]="minValue" [max]="maxValue" [value]="value"></dx-number-box>
+      </div>
+      <div class="mt-3">
+        <dx-button text="Add Quantity" (onClick)="submit()"></dx-button>
+      </div>
+    </form>
+  </div>
+</dx-popup>

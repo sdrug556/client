@@ -9,6 +9,7 @@ import {
   DxLoadPanelModule,
   DxLookupModule,
   DxPopupModule,
+  DxTabPanelModule,
 } from 'devextreme-angular';
 import { StockAdjustmentHistoryComponent } from './stock-adjustment-history/stock-adjustment-history.component';
 
@@ -22,7 +23,8 @@ import { StockAdjustmentHistoryComponent } from './stock-adjustment-history/stoc
     DxPopupModule,
     DxLookupModule,
     DxButtonModule,
-    DxLoadPanelModule
+    DxLoadPanelModule,
+    DxTabPanelModule,
   ],
 })
 export class StockAdjustmentModule {}
