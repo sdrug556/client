@@ -1,0 +1,79 @@
+<dx-popup
+  title="Closing Sales Cash Count"
+  [showTitle]="true"
+  [(visible)]="visible"
+  [deferRendering]="true"
+  [showCloseButton]="true"
+  width="100vw"
+  maxWidth="600px"
+  height="95vh"
+>
+  <div *dxTemplate="let d of 'content'">
+    <dx-scroll-view>
+      <form (submit)="submit($event)" [formGroup]="formGroup">
+        <section>
+          <div class="w-4/12">
+            <b>Shift No:</b>
+          </div>
+          <div class="w-8/12">
+            <b> {{ shiftNumber }} </b>
+          </div>
+        </section>
+        <section>
+          <div class="w-4/12">
+            <b> Cashier Name: </b>
+          </div>
+          <div class="w-8/12">
+            <b> {{ cashierName }} </b>
+          </div>
+        </section>
+        <ng-container *ngIf="isRendered">
+          <section *ngFor="let control of controls" class="value">
+            <div class="w-4/12">
+              <b>{{ control.value | currency:'PHP' }}</b>
+            </div>
+            <div class="w-4/12">
+              <dx-number-box
+                [value]="0"
+                [formControlName]="control.name"
+              ></dx-number-box>
+            </div>
+            <div class="w-4/12">
+              <dx-number-box
+                [readOnly]="true"
+                [formControlName]="control.total"
+                format="₱ #,##0.##"
+              ></dx-number-box>
+            </div>
+          </section>
+          <section>
+            <div class="w-6/12 mr-5">
+              <span> Opening Cash </span>
+              <dx-number-box
+                formControlName="openingCash"
+                format="₱ #,##0.##"
+              ></dx-number-box>
+            </div>
+            <div class="w-6/12 ml-5">
+              <span> Closing Cash </span>
+              <dx-number-box
+                formControlName="closingCash"
+                format="₱ #,##0.##"
+              ></dx-number-box>
+            </div>
+          </section>
+          <section>
+            <div class="w-6/12 mr-5">
+              <p class="text-red-400">
+                Note: Include beginning Cash fund in the Cash count.
+              </p>
+            </div>
+            <div class="w-6/12 ml-5">
+              <dx-button text="Submit Sales" type="submit" (onClick)="submit()"> </dx-button>
+            </div>
+          </section>
+        </ng-container>
+      </form>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

@@ -19,12 +19,15 @@ import { CashierProductAddComponent } from './cashier-product-add/cashier-produc
 import { CashierRoutingModule } from './cashier-routing.module';
 import { CashierTodaySalesComponent } from './cashier-today-sales/cashier-today-sales.component';
 import { CashierComponent } from './cashier.component';
+import { CasherCashCountComponent } from './casher-cash-count/casher-cash-count.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     CashierComponent,
     CashierProductAddComponent,
     CashierTodaySalesComponent,
+    CasherCashCountComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,8 @@ import { CashierComponent } from './cashier.component';
     DxTextAreaModule,
     NotesViewerModule,
     ProductQuantityModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class CashierModule {}

@@ -3,7 +3,6 @@ import { AuthService } from '@services/auth.service';
 import { SettingNoteType, SettingsService } from '@services/settings.service';
 import notify from 'devextreme/ui/notify';
 import { finalize } from 'rxjs/operators';
-import { NotesViewerService } from 'src/app/components/notes-viewer/notes-viewer.service';
 
 @Component({
   selector: 'app-settings-note',
@@ -28,13 +27,13 @@ export class SettingsNoteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._settingsService.getNote().subscribe((res) => {
-      this.cashierNote = res?.find((n) => n.type === SettingNoteType.Cashier);
-      this.adminNote = res?.find((n) => n.type === SettingNoteType.Admin);
+    // this._settingsService.getNote().subscribe((res) => {
+    //   this.cashierNote = res?.find((n) => n.type === SettingNoteType.Cashier);
+    //   this.adminNote = res?.find((n) => n.type === SettingNoteType.Admin);
 
-      this.cashierNoteContent = this.cashierNote?.note
-      this.adminNoteContent = this.adminNote?.note;
-    });
+    //   this.cashierNoteContent = this.cashierNote?.note
+    //   this.adminNoteContent = this.adminNote?.note;
+    // });
   }
 
   save(e: any): void {

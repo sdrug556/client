@@ -1,12 +1,36 @@
 <h1 class="text-6xl mb-6 mb-6">Dashboard</h1>
 <div class="cards flex flex-wrap">
-
-  <div class="card-container basis-12/12 md:basis-4/12 lg:basis-3/12 xl:basis-3/12" *ngFor="let item of items">
+  <div
+    class="card-container basis-12/12 md:basis-4/12 lg:basis-3/12 xl:basis-3/12"
+    *ngFor="let item of items"
+  >
     <app-dashboard-card
       [title]="item.title"
       [item]="item.value"
       [url]="item.url"
-      >
+    >
     </app-dashboard-card>
-  </div><!-- .card-container -->
-</div><!-- .container -->
+  </div>
+  <!-- .card-container -->
+
+  <section class="flex flex-col">
+    <div class="row mt-10">
+      <h1 class="text-6xl mb-6 mb-6">Note</h1>
+      <div>
+        <quill-editor
+          #adminNote
+          [(ngModel)]="note.note"
+          [styles]="{
+            'min-height': '200px',
+            'max-height': '500px'
+          }"
+        ></quill-editor>
+      </div>
+    </div>
+    <div class="mt-10">
+      <dx-button text="Save" type="default" (onClick)="save($event)">
+      </dx-button>
+    </div>
+  </section>
+</div>
+<!-- .container -->

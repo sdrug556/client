@@ -64,6 +64,7 @@
           [dataSource]="userDiscount"
           valueExpr="value"
           displayExpr="text"
+          placeholder="Discount"
         ></dxo-lookup>
       </dxi-column>
       <dxi-column
@@ -152,6 +153,11 @@
         text="Note"
         icon="mdi mdi-note-text-outline"
         (click)="showNote()"
+      ></dx-button>
+      <dx-button
+        text="Closing Sale Cash Count"
+        icon="mdi mdi-cash-multiple"
+        (click)="cashOut?.show()"
       ></dx-button>
       <dx-button
         text="Logout"
@@ -249,3 +255,4 @@
 <div #toPrint></div>
 <app-notes-viewer></app-notes-viewer>
 <app-product-quantity></app-product-quantity>
+<app-casher-cash-count #cashOut></app-casher-cash-count>

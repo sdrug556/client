@@ -5,12 +5,20 @@
     <quill-editor #cashierNote [(ngModel)]="cashierNoteContent"></quill-editor>
   </div>
 </div>
-<div class="row mt-10">
-  <label class="font-bold"> Admin Note </label>
-  <div>
-    <quill-editor #adminNote [(ngModel)]="adminNoteContent"></quill-editor>
-  </div>
-</div>
-<div class="mt-10">
-  <dx-button text="Save" type="default" (onClick)="save($event)" [disabled]="isSaving"> </dx-button>
+<div class="note-container flex">
+  <section class="mt-10">
+    <label class="font-bold"> Admin Note </label>
+    <div>
+      <quill-editor #adminNote [(ngModel)]="adminNoteContent"></quill-editor>
+    </div>
+  </section>
+  <section class="mt-10">
+    <dx-button
+      text="Save"
+      type="default"
+      (onClick)="save($event)"
+      [disabled]="isSaving"
+    >
+    </dx-button>
+  </section>
 </div>

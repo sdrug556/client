@@ -32,6 +32,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'closing-cash',
+        data: { breadcrumbs: 'Closing Cash Count Report' },
+        loadChildren: () =>
+          import('./reports-closing-cash/reports-closing-cash.module').then(
+            (m) => m.ReportsClosingCashModule
+          ),
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'sales'

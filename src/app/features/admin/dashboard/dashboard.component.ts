@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@services/auth.service';
 import { DashboardService } from '@services/dashboard.service';
-import { first, map } from 'rxjs/operators';
+import { SettingNoteType, SettingsService } from '@services/settings.service';
+import notify from 'devextreme/ui/notify';
+import { first, take, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,14 +13,21 @@ import { first, map } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   items: any[] = [];
+  note: any = {};
+  isSaving: any;
 
-  constructor(private _dashboardService: DashboardService) {}
+  constructor(
+    private _dashboardService: DashboardService,
+    private _settingsService: SettingsService,
+    private _authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
     this._dashboardService
       .getAll()
       .pipe(first())
       .subscribe((items) => {
+        console.log(items);
         const keys = Object.keys(items);
         // Create our number formatter.
         var formatter = new Intl.NumberFormat('en-US', {
@@ -26,17 +36,18 @@ export class DashboardComponent implements OnInit {
         });
 
         keys.forEach((key) => {
-          console.log(key);
           const obj: any = {
             title: this.format(key),
-            value: key.startsWith('sales') ? formatter.format(items[key]) : items[key],
-          }
+            value: key.startsWith('sales')
+              ? formatter.format(items[key])
+              : items[key],
+          };
           switch (key) {
             case 'salesToday':
               obj.url = '/admin/reports/sales?activeButton=Sales Today';
               break;
             case 'salesThisWeek':
-              obj.url = '/admin/reports/sales?activeButton=Sales this Week'
+              obj.url = '/admin/reports/sales?activeButton=Sales this Week';
               break;
             case 'salesThisMonth':
               obj.url = '/admin/reports/sales?activeButton=Sales this Month';
@@ -50,10 +61,39 @@ export class DashboardComponent implements OnInit {
             case 'productExpired':
               obj.url = '/admin/reports/products?activeButton=Expired';
               break;
+            case 'salesThisYear':
+              obj.url = '/admin/reports/sales?activeButton=Sales this Year';
+              break;
           }
           this.items.push(obj);
         });
       });
+
+    this._settingsService
+      .getNoteByType(SettingNoteType.Admin)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.note = res;
+      });
+  }
+
+  save(e: any): void {
+    if (this.isSaving) return;
+    const data = [
+      {
+        ...this.note,
+        ...{
+          note: this.note.note,
+          type: SettingNoteType.Admin,
+          createdDate: Date.now(),
+          createdBy: this._authService.userInfo.id,
+        },
+      },
+    ];
+    this._settingsService
+      .saveNote(data)
+      .pipe(finalize(() => (this.isSaving = false)))
+      .subscribe(() => notify('Notes successfully saved', 'success', 3000));
   }
 
   private format(key: string): string {

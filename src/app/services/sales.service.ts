@@ -31,4 +31,14 @@ export class SalesService extends BaseService<Sale> {
     return this.http.post(url, cancelInfo);
   }
 
+  getClosingSale(): Observable<any[]> {
+    const url = environment.apiUrl + '/' + this.BASE_ROUTE + '/closing';
+    return this.http.get(url) as Observable<any[]>;
+  }
+
+  addClosingSale(closingSales: any): Observable<any> {
+    const url = environment.apiUrl + '/' + this.BASE_ROUTE + '/closing';
+    return this.http.post(url, closingSales);
+  }
+
 }

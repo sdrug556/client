@@ -93,19 +93,24 @@ export class AdminComponent
           icon: 'mdi mdi-cash-multiple',
           visible: this._authService.userInfo.isOwner
         },
-      ],
-    },
-    {
-      title: 'Settings',
-      icon: 'mdi mdi-wrench',
-      menu: [
         {
-          title: 'Notes',
-          url: 'settings/notes',
-          icon: 'mdi mdi-note-text-outline',
+          title: 'Closing Cash Count Report',
+          url: 'reports/closing-cash',
+          icon: 'mdi mdi-cash',
         },
       ],
     },
+    // {
+    //   title: 'Settings',
+    //   icon: 'mdi mdi-wrench',
+    //   menu: [
+    //     {
+    //       title: 'Notes',
+    //       url: 'settings/notes',
+    //       icon: 'mdi mdi-note-text-outline',
+    //     },
+    //   ],
+    // },
   ];
 
   onItemClick(e: ItemClickEvent): void {
@@ -136,7 +141,7 @@ export class AdminComponent
       this._activatedRoute.snapshot.queryParams['showNote']
     );
     if (showNote) {
-      this._noteViewerService.show(SettingNoteType.Admin);
+      // this._noteViewerService.show(SettingNoteType.Admin);
       this._router.navigate(['.'], {
         queryParams: { showNote: null },
         relativeTo: this._activatedRoute,

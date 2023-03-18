@@ -52,6 +52,7 @@ export interface User {
   type: number;
   uid: string;
   allowLogin: boolean;
+  shiftNumber: string;
 }
 
 export interface UserCache {

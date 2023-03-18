@@ -72,6 +72,10 @@ export class CashierComponent implements OnInit {
 
   userDiscount = [
     {
+      text: '',
+      value: 0
+    },
+    {
       text: 'Senior/PWD',
       value: 5,
     },
@@ -98,7 +102,7 @@ export class CashierComponent implements OnInit {
       this._activatedRoute.snapshot.queryParams['showNote']
     );
     if (showNote) {
-      this._noteViewerService.show(SettingNoteType.Cashier);
+      this._noteViewerService.show(SettingNoteType.Admin);
       this._router.navigate(['.'], {
         queryParams: { showNote: null },
         relativeTo: this._activatedRoute,
@@ -218,13 +222,25 @@ export class CashierComponent implements OnInit {
         this._caculateProductTotal(prev.price, prev.quantity, prev.discount)
       );
     }, 0);
-    const totalSalesWithoutDiscount = products.reduce((cur, prev) => {
-      return cur + this._caculateProductTotal(prev.price, prev.quantity, 0);
-    }, 0);
-    this.discounted = totalSalesWithoutDiscount - this.totalSales;
+    // const totalSalesWithoutDiscount = products.reduce((cur, prev) => {
+    //   return cur + this._caculateProductTotal(prev.price, prev.quantity, 0);
+    // }, 0);
+
+    this.discounted = this._calculateTotalDiscounted(products);
 
     this.vat = calculateVAT(this.totalSales);
     this.vatable = this.totalSales - this.vat;
+    this._cdr.detectChanges();
+  }
+
+  private _calculateTotalDiscounted(products: Product[]): number {
+    return products.reduce((prev, cur) => {
+      if (!cur.discount) {
+        return prev;
+      }
+      const discountPercentage = cur.discount / 100;
+      return prev + ((cur.price * discountPercentage) * cur.quantity);
+    }, 0);
   }
 
   private _generateRecieptContent(): string {
@@ -474,6 +490,6 @@ export class CashierComponent implements OnInit {
       });
   }
   showNote(): void {
-    this._noteViewerService.show(SettingNoteType.Cashier);
+    this._noteViewerService.show(SettingNoteType.Admin);
   }
 }

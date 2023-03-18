@@ -1,0 +1,15 @@
+section {
+  display: flex;
+  margin-top: 15px;
+}
+
+section.value div:not(:first-child) {
+  margin-left: 25px;
+}
+
+section.value div:first-child {
+  display: flex;
+  text-align: right;
+  justify-content: right;
+  align-items: center;
+}
