@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdjustmentStockService } from '@services/adjustmentstock.service';
+import { AuthService } from '@services/auth.service';
 import { ProductService } from '@services/product.service';
 import { SupplierService } from '@services/supplier.service';
 import { AdjustmentStock, Product, Supplier } from '@types';
@@ -39,7 +40,7 @@ export class StockAdjustmentComponent extends ComponentBase implements OnInit {
   products: Product[] = [];
 
   formData = {
-    stockInBy: 'Mark',
+    stockInBy: `${this._authService.userInfo.firstName} ${this._authService.userInfo.lastName}`,
     stockInDate: format(new Date(), 'MMMM dd yyyy h:m bbbb'),
     supplier: '',
   };
@@ -67,7 +68,8 @@ export class StockAdjustmentComponent extends ComponentBase implements OnInit {
   constructor(
     private _supplierService: SupplierService,
     private _productService: ProductService,
-    private _stockAdjustmentService: AdjustmentStockService
+    private _stockAdjustmentService: AdjustmentStockService,
+    private _authService: AuthService,
   ) {
     super();
   }
