@@ -40,7 +40,10 @@ header {
   height: $headerHeight;
   background: #ff3131;
   border-radius: 20px;
+  overflow: hidden;
   margin-top: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 // .menu-icon {

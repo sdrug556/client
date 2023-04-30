@@ -15,6 +15,8 @@ body {
 
 .default-app-style {
   @apply flex flex-col h-full p-20 pt-10 box-border;
+  padding-left: 20px;
+  padding-right: 20px;
   // background-color: #ffdecc;
 }
 
