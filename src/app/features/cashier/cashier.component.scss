@@ -1,5 +1,9 @@
 :host {
   @apply w-screen h-screen box-border flex flex-col p-8 bg-slate-50 overflow-hidden;
+  background-image: url(/assets/img/background.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header {
@@ -31,4 +35,10 @@
 
 dx-data-grid {
   height: calc(100vh - 120px);
+}
+
+.menu-buttons {
+  dx-button {
+    background-color: rgba(255, 49, 49, 1.00);
+  }
 }

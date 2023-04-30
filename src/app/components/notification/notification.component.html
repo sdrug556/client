@@ -3,18 +3,22 @@
   {{ count }}
 </div><!-- .badge -->
 <dx-popover
+  #popover
   target="#notification-target"
   position="bottom"
+  [showEvent]="{ name: 'click' }"
   (onShowing)="onShowing($event)"
   >
-  <dxo-show-event
-    name="click"
-    >
-  </dxo-show-event>
   <div *dxTemplate="let data = data; of: 'content'">
-    <h1>this is sample</h1>
-    <h1>this is sample</h1>
-    <h1>this is sample</h1>
-    <h1>this is sample</h1>
+    <dx-list
+        itemTemplate="item"
+        width="400px"
+        [dataSource]="notificationItems"
+        (onItemClick)="itemClicked($event, popover)"
+      >
+      <div *dxTemplate="let d of 'item'">
+        <span>{{ d.value }} {{ d.title }}</span>
+      </div>
+    </dx-list>
   </div>
 </dx-popover>

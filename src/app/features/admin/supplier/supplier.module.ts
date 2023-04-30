@@ -1,17 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupplierComponent } from './supplier.component';
+import { NgModule } from '@angular/core';
+import {
+  DxDataGridModule,
+  DxPopupModule,
+  DxScrollViewModule,
+  DxTextBoxModule,
+  DxLoadIndicatorModule
+} from 'devextreme-angular';
+import { QuillModule } from 'ngx-quill';
 import { SupplierRoutingModule } from './supplier-routing.module';
-import { DxDataGridModule } from 'devextreme-angular';
+import { SupplierComponent } from './supplier.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    SupplierComponent
-  ],
+  declarations: [SupplierComponent],
   imports: [
     CommonModule,
     SupplierRoutingModule,
-    DxDataGridModule
-  ]
+    DxDataGridModule,
+    DxPopupModule,
+    DxScrollViewModule,
+    DxTextBoxModule,
+    QuillModule,
+    FormsModule
+  ],
 })
-export class SupplierModule { }
+export class SupplierModule {}

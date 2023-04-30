@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { CategoryService } from '@services/category.service';
 import { Category } from '@types';
 import { SavingEvent } from 'devextreme/ui/data_grid';
@@ -10,12 +10,13 @@ import { handleOnSaving, notifySuccess } from 'src/app/utils';
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  host: { class: 'default-app-style' },
 })
 export class CategoriesComponent
   extends ComponentBase
   implements OnInit, OnDestroy
 {
+  @Output() onChanged = new EventEmitter<any>();
+
   categories: Category[] = [];
 
   constructor(private _cs: CategoryService) {
@@ -23,10 +24,10 @@ export class CategoriesComponent
   }
 
   ngOnInit(): void {
-    this._getAll();
+    this.load();
   }
 
-  private _getAll(): void {
+  load(): void {
     this._cs
       .getAll()
       .pipe(first())
@@ -40,6 +41,9 @@ export class CategoriesComponent
   }
 
   onSaving(e: SavingEvent): void {
-    handleOnSaving(this._cs, e, () => this._getAll());
+    handleOnSaving(this._cs, e, () => {
+      this.load();
+      this.onChanged.emit(this);
+    });
   }
 }

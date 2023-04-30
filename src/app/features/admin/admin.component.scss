@@ -5,25 +5,30 @@ $bgColor: #c10003;
 $boxShadow: 1px 1px 23px -6px #000;
 
 :host {
-  @apply h-screen w-screen overflow-hidden bg-gray-50;
+  @apply h-screen w-screen overflow-hidden;
+  // background-color: #ffdecc;
   display: grid;
   grid-template-columns: $listWidth 1fr;
+  background-image: url(/assets/img/background.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .nav {
   width: $listWidth;
-  background: #be0002;
-  box-shadow: $boxShadow;
+  // background: #be0002;
+  // box-shadow: $boxShadow;
 }
 
 .nav-info {
-  box-sizing: border-box;
-  padding: 14px 16px 13px;
-  height: 150px;
-  border-bottom-left-radius: $borderRadius;
-  border-bottom-right-radius: $borderRadius;
-  // box-shadow: $boxShadow;
-  background-image: url("/assets/img/hypersaver.jpg");
+  // box-sizing: border-box;
+  // padding: 14px 16px 13px;
+  // height: 150px;
+  // border-bottom-left-radius: $borderRadius;
+  // border-bottom-right-radius: $borderRadius;
+  // // box-shadow: $boxShadow;
+  // background-image: url("/assets/img/hypersaver.jpg");
 }
 
 .content {
@@ -33,56 +38,80 @@ $boxShadow: 1px 1px 23px -6px #000;
 header {
   @apply flex items-center pl-4 pr-4;
   height: $headerHeight;
+  background: #ff3131;
+  border-radius: 20px;
+  margin-top: 12px;
 }
 
-.menu-icon {
-  @apply mr-2;
+// .menu-icon {
+//   @apply mr-2;
+// }
+
+// .menu-icon {
+//   font-size: 1.7rem;
+// }
+
+// .menu-title {
+//   font-size: 1.6rem;
+// }
+
+// .item-container {
+//   margin-left: -18px;
+// }
+
+.nav-info,
+dx-scroll-view {
+  padding: 10px;
 }
 
-.menu-icon {
-  font-size: 1.7rem;
+.nav-info {
+  // background-color: #ffdecc;
+  height: 160px;
 }
 
-.menu-title {
-  font-size: 1.6rem;
-}
-
-.item-container {
-  margin-left: -18px;
+img {
+  border-radius: 20px;
 }
 
 #route-content {
-  background-color: #eaeaea;
+  // background-color: #ffdecc;
 }
 
 dx-scroll-view {
-  height: calc(100vh - $headerHeight);
+  height: calc(100vh - 160px);
+  // background: #ffdecc;
 }
 
-::ng-deep app-admin dx-tree-view .dx-treeview-node {
-  transition: color .2s ease-in;
-  border-radius: $borderRadius;
+dx-tree-view {
+  font-size: 1.4rem;
+  background-color: rgba(255, 49, 49, 1.00);
+  border-radius: 20px;
 }
+
+// ::ng-deep app-admin dx-tree-view .dx-treeview-node {
+//   transition: color .2s ease-in;
+//   border-radius: $borderRadius;
+// }
 
 ::ng-deep app-admin dx-tree-view .dx-treeview-node.dx-state-selected {
-  background: $bgColor !important;
-  box-shadow: $boxShadow;
+  background: #910000;
+  border-radius: 20px;
 }
 
-::ng-deep app-admin dx-tree-view .dx-treeview-node.dx-state-selected .item-container {
-  color: #f9fafb;
-}
-
-::ng-deep app-admin dx-tree-view .dx-scrollable-container {
-  overflow: visible;
-}
-
-::ng-deep app-admin dx-tree-view .dx-treeview-toggle-item-visibility {
-  left: unset;
-  right: 5px;
-}
-
-// ::ng-deep app-admin dx-tree-view .dx-treeview-node-container > .dx-treeview-node {
-//   padding-left: 0;
+// ::ng-deep app-admin dx-tree-view .dx-treeview-node.dx-state-selected .item-container {
+//   color: #f9fafb;
 // }
+
+// ::ng-deep app-admin dx-tree-view .dx-scrollable-container {
+//   overflow: visible;
+// }
+
+// ::ng-deep app-admin dx-tree-view .dx-treeview-toggle-item-visibility {
+//   left: unset;
+//   right: 5px;
+// }
+
+// // ::ng-deep app-admin dx-tree-view .dx-treeview-node-container > .dx-treeview-node {
+// //   padding-left: 0;
+// // }
 

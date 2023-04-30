@@ -14,30 +14,39 @@
   <dxo-toolbar>
     <dxi-item location="before" name="groupPanel"> </dxi-item>
     <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Low Stocks"
-          [type]="activeButton == 'Low Stocks' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
+      <dx-select-box
+          [dataSource]="filters"
+          displayExpr="text"
+          valueExpr="text"
+          [value]="filterValue"
+          (onValueChanged)="filterChanged($event)"
+        ></dx-select-box>
     </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Expired"
-          [type]="activeButton == 'Expired' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
-    </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button>
-      </div>
-    </dxi-item>
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Low Stocks" -->
+    <!--       [type]="activeButton == 'Low Stocks' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Expired" -->
+    <!--       [type]="activeButton == 'Expired' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
     <dxi-item location="after">
       <div *dxTemplate>
         <dx-button

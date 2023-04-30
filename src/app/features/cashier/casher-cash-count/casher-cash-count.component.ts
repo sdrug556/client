@@ -42,6 +42,10 @@ export class CasherCashCountComponent implements OnInit, OnDestroy {
       value: 50,
     },
     {
+      name: 'twenty',
+      value: 20
+    },
+    {
       name: 'ten',
       value: 10,
     },

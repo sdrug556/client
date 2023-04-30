@@ -15,22 +15,22 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
-      {
-        path: 'categories',
-        data: { breadcrumbs: 'Categories' },
-        loadChildren: () =>
-          import('@features/admin/categories/categories.module').then(
-            (m) => m.CategoriesModule
-          ),
-      },
-      {
-        path: 'products',
-        data: { breadcrumbs: 'Products' },
-        loadChildren: () =>
-          import('@features/admin/products/products.module').then(
-            (m) => m.ProductsModule
-          ),
-      },
+      // {
+      //   path: 'categories',
+      //   data: { breadcrumbs: 'Categories' },
+      //   loadChildren: () =>
+      //     import('@features/admin/categories/categories.module').then(
+      //       (m) => m.CategoriesModule
+      //     ),
+      // },
+      // {
+      //   path: 'products',
+      //   data: { breadcrumbs: 'Products' },
+      //   loadChildren: () =>
+      //     import('@features/admin/products/products.module').then(
+      //       (m) => m.ProductsModule
+      //     ),
+      // },
       {
         path: 'supplier',
         data: { breadcrumbs: 'Supplier' },

@@ -5,30 +5,21 @@
   [dataSource]="supplier"
   [allowColumnReordering]="true"
   [allowColumnResizing]="true"
+  [disabled]="isSendingEmail"
   (onSaving)="onSaving($event)"
-  >
-  <dxi-column
-    dataField="name"
-    caption="Name"
-    >
+>
+  <dxi-column dataField="name" caption="Name">
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
-  <dxi-column
-    dataField="description"
-    caption="Description"
-    >
-  </dxi-column>
-  <dxi-column
-    dataField="email"
-    caption="Email"
-    >
+  <dxi-column dataField="description" caption="Description"> </dxi-column>
+  <dxi-column dataField="email" caption="Email">
     <dxi-validation-rule type="email"></dxi-validation-rule>
   </dxi-column>
   <dxi-column
     dataField="contactNumber"
     caption="Contact Number"
     dataType="number"
-    >
+  >
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
 
@@ -37,24 +28,81 @@
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true"
-    >
+  >
     <dxo-popup
       title="Add Supplier"
       [showTitle]="true"
       width="auto"
       height="auto"
-      >
+    >
     </dxo-popup>
   </dxo-editing>
 
-  <dxo-filter-row [visible]="false">
-  </dxo-filter-row>
+  <dxo-filter-row [visible]="false"> </dxo-filter-row>
 
   <dxo-pager
     [visible]="true"
     [allowedPageSizes]="['5', '10', '15']"
     displayMode="adaptive"
     [showInfo]="true"
-    >
+  >
   </dxo-pager>
+
+  <dxi-column type="buttons">
+    <dxi-button name="edit" text="Edit"></dxi-button>
+    <dxi-button name="delete" text="Delete"></dxi-button>
+    <dxi-button
+      hint="Send Supplier Email"
+      text="Email"
+      [onClick]="onEmailClick"
+    ></dxi-button>
+  </dxi-column>
 </dx-data-grid>
+
+<dx-popup
+  [visible]="sendSupplier"
+  title="Email Supplier"
+  (onHidden)="sendSupplier = null"
+>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="top"
+    location="after"
+    [disabled]="!emailContent || !title.value"
+    [options]="emailButtonOptions"
+  >
+  </dxi-toolbar-item>
+
+  <div *dxTemplate="let d of 'content'">
+    <dx-scroll-view width="99%">
+      <section>
+        <label for="">Supplier:</label>
+        <dx-text-box
+          [value]="sendSupplier?.name"
+          [readOnly]="true"
+        ></dx-text-box>
+      </section>
+      <section>
+        <label for="">To:</label>
+        <dx-text-box
+          [value]="sendSupplier?.email"
+          [readOnly]="true"
+        ></dx-text-box>
+      </section>
+      <section>
+        <label for="">Title</label>
+        <dx-text-box #title></dx-text-box>
+      </section>
+      <section>
+        <label for="">Body</label>
+        <quill-editor
+          #adminNote
+          [(ngModel)]="emailContent"
+          [styles]="{
+            'height': '250px'
+          }"
+        ></quill-editor>
+      </section>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

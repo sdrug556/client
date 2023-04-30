@@ -1,16 +1,22 @@
-<h1 class="text-6xl mb-6 mb-6">Dashboard</h1>
+<!-- <h1 class="text-6xl mb-6 mb-6">Dashboard</h1> -->
 <div class="cards flex flex-wrap">
-  <div
-    class="card-container basis-12/12 md:basis-4/12 lg:basis-3/12 xl:basis-3/12"
-    *ngFor="let item of items"
-  >
-    <app-dashboard-card
-      [title]="item.title"
-      [item]="item.value"
-      [url]="item.url"
-    >
-    </app-dashboard-card>
+  <div class="mt-2">
+    <app-products #products> </app-products>
   </div>
+  <div class="mt-2">
+    <app-categories #categories (onChanged)="products.loadCategories()"></app-categories>
+  </div>
+  <!-- <div -->
+  <!--   class="card-container basis-12/12 md:basis-4/12 lg:basis-3/12 xl:basis-3/12" -->
+  <!--   *ngFor="let item of items" -->
+  <!-- > -->
+  <!--   <app-dashboard-card -->
+  <!--     [title]="item.title" -->
+  <!--     [item]="item.value" -->
+  <!--     [url]="item.url" -->
+  <!--   > -->
+  <!--   </app-dashboard-card> -->
+  <!-- </div> -->
   <!-- .card-container -->
 
   <section class="flex flex-col">

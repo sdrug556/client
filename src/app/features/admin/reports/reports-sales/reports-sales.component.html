@@ -17,59 +17,78 @@
     </dxi-item>
     <dxi-item location="after">
       <div *dxTemplate>
-        <dx-button
-          text="Sales Today"
-          [type]="activeButton == 'Sales Today' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
+        <dx-select-box
+          displayExpr="text"
+          valueExpr="text"
+          value="all"
+          width="200px"
+          [dataSource]="filters"
+          (onValueChanged)="filterChanged($event)"
+          >
+        </dx-select-box>
+        <!-- <dx-button -->
+        <!--   text="Sales Today" -->
+        <!--   [type]="activeButton == 'Sales Today' ? 'default' : 'normal'" -->
+        <!--   (onClick)="filterClicked($event)" -->
+        <!-- > -->
+        <!-- </dx-button> -->
       </div>
     </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Sales this Week"
-          [type]="activeButton == 'Sales this Week' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
-    </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Sales this Month"
-          [type]="activeButton == 'Sales this Month' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
-    </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Sales last Month"
-          [type]="activeButton == 'Sales last Month' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
-    </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button
-          text="Sales this Year"
-          [type]="activeButton == 'Sales this Year' ? 'default' : 'normal'"
-          (onClick)="filterClicked($event)"
-        >
-        </dx-button>
-      </div>
-    </dxi-item>
-    <dxi-item location="after">
-      <div *dxTemplate>
-        <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button>
-      </div>
-    </dxi-item>
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Sales Today" -->
+    <!--       [type]="activeButton == 'Sales Today' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Sales this Week" -->
+    <!--       [type]="activeButton == 'Sales this Week' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Sales this Month" -->
+    <!--       [type]="activeButton == 'Sales this Month' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Sales last Month" -->
+    <!--       [type]="activeButton == 'Sales last Month' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button -->
+    <!--       text="Sales this Year" -->
+    <!--       [type]="activeButton == 'Sales this Year' ? 'default' : 'normal'" -->
+    <!--       (onClick)="filterClicked($event)" -->
+    <!--     > -->
+    <!--     </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
+    <!-- <dxi-item location="after"> -->
+    <!--   <div *dxTemplate> -->
+    <!--     <dx-button text="All" (onClick)="filterClicked($event)"> </dx-button> -->
+    <!--   </div> -->
+    <!-- </dxi-item> -->
     <dxi-item location="after">
       <div *dxTemplate>
         <dx-button

@@ -1,5 +1,9 @@
 :host {
   @apply flex items-center justify-center h-screen w-screen flex-col;
+  background-image: url(/assets/img/background.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: right;
   // background-color: #be0002;
 }
 
@@ -12,14 +16,24 @@
   display: flex !important;
 }
 
+.login-container {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
 .hypersavers-img {
-  box-sizing: border-box;
-  padding: 14px 16px 13px;
-  height: 200px;
-  background-image: url(/assets/img/hypersaver.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 662px;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  // box-sizing: border-box;
+  // padding: 14px 16px 13px;
+  // height: 200px;
+  // background-image: url(/assets/img/hypersaver.jpg);
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  // width: 662px;
+  // border-top-right-radius: 5px;
+  // border-top-left-radius: 5px;
+  background-color: #be0002;
+}
+
+dx-form {
+  padding: 10px 30px;
 }

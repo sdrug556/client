@@ -36,18 +36,18 @@ export class AdminComponent
       url: 'dashboard',
       icon: 'mdi mdi-view-dashboard',
     },
+    // {
+    //   title: 'Products',
+    //   url: 'products',
+    //   icon: 'mdi mdi-package-variant',
+    // },
+    // {
+    //   title: 'Categories',
+    //   url: 'categories',
+    //   icon: 'mdi mdi-shape',
+    // },
     {
-      title: 'Products',
-      url: 'products',
-      icon: 'mdi mdi-package-variant',
-    },
-    {
-      title: 'Categories',
-      url: 'categories',
-      icon: 'mdi mdi-shape',
-    },
-    {
-      title: 'Supplier',
+      title: 'Supplier Information',
       url: 'supplier',
       icon: 'mdi mdi-truck',
     },

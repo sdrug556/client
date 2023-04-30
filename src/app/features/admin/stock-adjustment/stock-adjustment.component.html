@@ -6,16 +6,16 @@
   width="auto"
   class="shadow-xl p-6"
   (onContentReady)="onSelectionChanged($event)"
+  (onFieldDataChanged)="onFieldDataChanged($event)"
 >
   <dxi-item itemType="tabbed">
-    <dxo-tab-panel-options>
-    </dxo-tab-panel-options>
+    <dxo-tab-panel-options> </dxo-tab-panel-options>
     <dxi-tab title="Adjustment">
-      <dxi-item
-        dataField="stockInBy"
-        [colSpan]="1"
-        [editorOptions]="{ disabled: true }"
-      ></dxi-item>
+      <!-- <dxi-item -->
+      <!--   dataField="stockInBy" -->
+      <!--   [colSpan]="1" -->
+      <!--   [editorOptions]="{ disabled: true }" -->
+      <!-- ></dxi-item> -->
       <dxi-item
         dataField="stockInDate"
         [colSpan]="1"

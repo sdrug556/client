@@ -8,18 +8,37 @@
   (onSaving)="onSaving($event)"
   (onInitNewRow)="onInitNewRow($event)"
 >
-  <dxi-column dataField="name" caption="Name">
+  <dxi-column
+    dataField="name"
+    caption="Name"
+    [filterOperations]="['startswith']"
+    selectedFilterOperation="startswith"
+    [calculateFilterExpression]="calculateFilterExpression"
+  >
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
-  <dxi-column dataField="description" caption="Description"> </dxi-column>
-  <dxi-column dataField="expiration" caption="Expiration" dataType="date">
+  <dxi-column
+    dataField="description"
+    caption="Description"
+    [filterOperations]="['startswith']"
+    selectedFilterOperation="startswith"
+    [calculateFilterExpression]="calculateFilterExpression"
+    [allowSearch]="false"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="expiration"
+    caption="Expiration"
+    dataType="date"
+    [allowSearch]="false"
+  >
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
-  <dxi-column dataField="category" caption="Category">
+  <dxi-column dataField="category" caption="Category" [allowSearch]="false">
     <dxo-lookup [dataSource]="categories" valueExpr="id" displayExpr="name">
     </dxo-lookup>
   </dxi-column>
-  <dxi-column dataField="supplier" caption="Supplier">
+  <dxi-column dataField="supplier" caption="Supplier" [allowSearch]="false">
     <dxo-lookup
       [dataSource]="suppliers"
       valueExpr="id"
@@ -30,6 +49,7 @@
     dataField="price"
     caption="Price"
     [calculateDisplayValue]="currencyFormat"
+    [allowSearch]="false"
   >
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
@@ -46,12 +66,14 @@
     caption="Created Date"
     dataType="date"
     allowEditing="false"
+    [allowSearch]="false"
   >
   </dxi-column>
   <dxi-column
     dataField="reorderPoint"
     caption="Reorder Point"
     dataType="number"
+    [allowSearch]="false"
   >
   </dxi-column>
   <dxi-column
@@ -59,12 +81,14 @@
     caption="Stocks"
     dataType="number"
     [allowEditing]="false"
+    [allowSearch]="false"
   >
   </dxi-column>
   <dxi-column
     dataField="barcode"
     caption="Barcode"
     dataType="number"
+    [allowSearch]="false"
   >
   </dxi-column>
 
@@ -135,4 +159,15 @@
   </dxo-pager>
 
   <dxo-paging [pageSize]="10" [enabled]="true"> </dxo-paging>
+
+  <!-- <dxo-toolbar> -->
+  <!--   <dxi-item name="addRowButton"></dxi-item> -->
+  <!--   <dxi-item location="after"> -->
+  <!--     <div *dxTemplate class="search"> -->
+  <!--       <dx-text-box mode="search" placeholder="Search..." (onValueChanged)="search($event)"> -->
+  <!--       </dx-text-box> -->
+  <!--     </div> -->
+  <!--   </dxi-item> -->
+  <!-- </dxo-toolbar> -->
+
 </dx-data-grid>

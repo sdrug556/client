@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/devextreme/dist/css/dx.material.blue.light.css",
+              "src/assets/theme/dx.generic.custom-scheme.css",
               "node_modules/@mdi/font/css/materialdesignicons.css"
             ],
             "scripts": [

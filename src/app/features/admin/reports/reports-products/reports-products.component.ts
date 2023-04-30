@@ -19,6 +19,16 @@ export class ReportsProductsComponent implements OnInit {
 
   activeButton: string;
 
+  filters = [{
+    text: 'Low Stocks'
+  }, {
+    text: 'Expired'
+  }, {
+    text: 'All'
+  }];
+
+  filterValue = 'All';
+
   constructor(private _productService: ProductService, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -40,9 +50,9 @@ export class ReportsProductsComponent implements OnInit {
           product.createdDate = new Date(+product.createdDate);
           return product;
         });
-        console.table(this.products);
         if (this._activatedRoute.snapshot.queryParams['activeButton']) {
           this.activeButton = this._activatedRoute.snapshot.queryParams['activeButton'];
+          this.filterValue = this._activatedRoute.snapshot.queryParams['activeButton'];
           setTimeout(() => this._filterByActiveButton());
         }
       });
@@ -50,7 +60,6 @@ export class ReportsProductsComponent implements OnInit {
 
   filterClicked(e: ClickEvent): void {
     this.activeButton = e.component.option('text');
-    console.log(this.activeButton);
     this._filterByActiveButton();
   }
 
@@ -70,6 +79,11 @@ export class ReportsProductsComponent implements OnInit {
 
   generateReport(): void {
     this.dxDataGrid.instance.exportToExcel(false);
+  }
+
+  filterChanged(e: any): void {
+    this.activeButton = e.value;
+    this._filterByActiveButton();
   }
 
 }

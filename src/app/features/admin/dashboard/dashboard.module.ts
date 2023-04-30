@@ -6,6 +6,8 @@ import { DashboardCardModule } from 'src/app/components/dashboard-card/dashboard
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { DxButtonModule } from 'devextreme-angular';
+import { CategoriesModule } from '../categories/categories.module';
+import { ProductsModule } from '../products/products.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { DxButtonModule } from 'devextreme-angular';
     QuillModule,
     FormsModule,
     DxButtonModule,
+    ProductsModule,
+    CategoriesModule
   ]
 })
 export class DashboardModule { }

@@ -5,6 +5,9 @@
 
 @import '~quill/dist/quill.snow.css';
 
+.dx-widget * {
+  font-size: 1.3rem;
+}
 
 body {
   @apply p-0 m-0;
@@ -12,4 +15,35 @@ body {
 
 .default-app-style {
   @apply flex flex-col h-full p-20 pt-10 box-border;
+  // background-color: #ffdecc;
+}
+
+.primary-bg {
+  background-color: #ffdecc;
+}
+
+.dx-datagrid.dx-gridbase-container {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.ql-toolbar,
+.ql-container {
+  background-color: #fff;
+}
+
+.ql-toolbar {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.ql-container {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+dx-form {
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff;
 }

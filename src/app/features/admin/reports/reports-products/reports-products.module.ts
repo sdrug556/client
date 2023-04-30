@@ -1,18 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReportsProductsComponent } from './reports-products.component';
+import { NgModule } from '@angular/core';
+import {
+  DxButtonModule,
+  DxDataGridModule,
+  DxSelectBoxModule,
+} from 'devextreme-angular';
 import { ReportsProductsRoutingModule } from './reports-products-routing.module';
-import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
+import { ReportsProductsComponent } from './reports-products.component';
 
 @NgModule({
-  declarations: [
-    ReportsProductsComponent
-  ],
+  declarations: [ReportsProductsComponent],
   imports: [
     CommonModule,
     ReportsProductsRoutingModule,
     DxDataGridModule,
-    DxButtonModule
-  ]
+    DxButtonModule,
+    DxSelectBoxModule,
+  ],
 })
-export class ReportsProductsModule { }
+export class ReportsProductsModule {}

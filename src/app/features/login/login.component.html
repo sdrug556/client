@@ -1,5 +1,7 @@
-<div class="hypersavers-img"></div>
-<div class="login-container p-8 rounded bg-gray-100">
+<div class="login-container rounded bg-gray-100 primary-bg">
+  <div class="hypersavers-img flex justify-center">
+    <img src="/assets/img/hypersaver.jpg" alt="" />
+  </div>
   <dx-form width="600px" height="auto" #form>
     <dxi-item itemType="group">
       <dxi-item dataField="email">
@@ -22,9 +24,15 @@
       </dxi-item>
     </dxi-item>
     <dxi-item itemType="simple" class="login-bottons-bottom">
-      <dx-button class="mr-4" text="Login" (onClick)="submit($event, form)"></dx-button>
+      <dx-button
+        class="mr-4"
+        text="Login"
+        (onClick)="submit($event, form)"
+      ></dx-button>
       <!-- <dx-button text="Register" (onClick)="register()"></dx-button> -->
-      <a href="#" class="ml-auto underline" (click)="forgotPassword($event)">Forgot Password?</a>
+      <a href="#" class="ml-auto underline" (click)="forgotPassword($event)"
+        >Forgot Password?</a
+      >
     </dxi-item>
   </dx-form>
 </div>

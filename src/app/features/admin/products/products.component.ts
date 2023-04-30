@@ -6,20 +6,18 @@ import { Category, Product, Supplier } from '@types';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { InitNewRowEvent, SavingEvent } from 'devextreme/ui/data_grid';
 import { first, zip } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { ComponentBase } from 'src/app/components/component-base';
-import { map } from 'rxjs/operators';
 import {
   createArrayStore,
   currencyFormatter,
   handleOnSaving,
-  notifySuccess,
 } from 'src/app/utils';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  host: { class: 'default-app-style' },
 })
 export class ProductsComponent
   extends ComponentBase
@@ -53,27 +51,35 @@ export class ProductsComponent
 
   ngOnInit(): void {
     super.subscribe(
-      zip([
-        this._categoryService.getAll(),
-        this._supplierService.getAll()
-      ]),
+      zip([this._categoryService.getAll(), this._supplierService.getAll()]),
       ([categories, suppliers]) => {
         this.categories = createArrayStore(categories);
         this.suppliers = createArrayStore(suppliers);
-        this._getAll();
+        this.load();
       }
     );
+  }
+
+  loadCategories(): void {
+    this._categoryService
+      .getAll()
+      .pipe(take(1))
+      .subscribe((categories) => {
+        console.log(categories);
+        this.categories = createArrayStore(categories);
+      });
   }
 
   ngOnDestroy(): void {
     super.dispose();
   }
 
-  private _getAll(): void {
-    this._productService.getAll()
+  load(): void {
+    this._productService
+      .getAll()
       .pipe(
         map((products) => {
-          return products.map(product => {
+          return products.map((product) => {
             product.expiration = new Date(+product.expiration);
             product.createdDate = new Date(+product.createdDate);
             return product;
@@ -81,9 +87,9 @@ export class ProductsComponent
         }),
         first()
       )
-      .subscribe(products => {
+      .subscribe((products) => {
         this.products = products;
-      })
+      });
   }
 
   currencyFormat(product: Product): string {
@@ -91,7 +97,7 @@ export class ProductsComponent
   }
 
   onSaving(e: SavingEvent): void {
-    handleOnSaving(this._productService, e, () => this._getAll());
+    handleOnSaving(this._productService, e, () => this.load());
   }
 
   onInitNewRow(e: InitNewRowEvent): void {
@@ -101,5 +107,46 @@ export class ProductsComponent
       status: true,
       createdDate: +today,
     };
+  }
+
+  calculateFilterExpression(
+    filterValue: any,
+    selectedFilterOperation: any,
+    target: any
+  ) {
+    const self = this as any;
+    console.log(filterValue, selectedFilterOperation, target);
+    // Override implementation for the "between" filter operation
+    // if (selectedFilterOperation === "between" && $.isArray(filterValue)) {
+    //   const filterExpression = [
+    //     [self.dataField, ">", filterValue[0]],
+    //     "and",
+    //     [self.dataField, "<", filterValue[1]]
+    //   ];
+    //   return filterExpression;
+    // }
+    // Invoke the default implementation for other filter operations
+    if (
+      target === 'search' &&
+      (self.dataField === 'name' || self.dataField === 'description')
+    ) {
+      return [self.dataField, 'startswith', filterValue];
+    }
+    return self.defaultCalculateFilterExpression
+      ? self.defaultCalculateFilterExpression.apply(this, arguments)
+      : [];
+  }
+
+  search(e: any): void {
+    if (!e.value) {
+      return this.grid.instance.clearFilter();
+    }
+    this.grid.instance
+      .getDataSource()
+      .filter([
+        ['name', 'startswith', e.value],
+        'or',
+        ['description', 'startswith', e.value],
+      ]);
   }
 }

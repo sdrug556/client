@@ -28,6 +28,22 @@ export class ReportsSalesComponent implements OnInit {
 
   activeButton: string;
 
+  filters = [{
+    text: 'Sales Today'
+  }, {
+    text: 'Sales this Week'
+  }, {
+    text: 'Sales this Month'
+  }, {
+    text: 'Sales last Month'
+  }, {
+    text: 'Sales this Year'
+  }, {
+    text: 'All'
+  }]
+
+  filterValue = 'All'
+
   constructor(private salesService: SalesService, private _activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -58,8 +74,9 @@ export class ReportsSalesComponent implements OnInit {
       .subscribe((res: any) => {
         this.sales = res;
         if (this._activatedRoute.snapshot.queryParams['activeButton']) {
-          this.activeButton = this._activatedRoute.snapshot.queryParams['activeButton'];
-          setTimeout(() => this._filterByActiveButton());
+          this.filterValue = this._activatedRoute.snapshot.queryParams['activeButton'];
+          // this.activeButton = this._activatedRoute.snapshot.queryParams['activeButton'];
+          // setTimeout(() => this._filterByActiveButton());
         }
       });
   }
@@ -78,6 +95,11 @@ export class ReportsSalesComponent implements OnInit {
 
   filterClicked(e: ClickEvent): void {
     this.activeButton = e.component.option('text');
+    this._filterByActiveButton();
+  }
+
+  filterChanged(e: any): void {
+    this.activeButton = e.value;
     this._filterByActiveButton();
   }
 
