@@ -78,7 +78,7 @@ export class AdminComponent
       icon: 'mdi mdi-chart-line',
       menu: [
         {
-          title: 'Sales Report',
+          title: 'Revenue',
           url: 'reports/sales',
           icon: 'mdi mdi-chart-bar',
         },
@@ -97,6 +97,11 @@ export class AdminComponent
           title: 'Closing Cash Count Report',
           url: 'reports/closing-cash',
           icon: 'mdi mdi-cash',
+        },
+        {
+          title: 'Notes',
+          url: 'reports/note',
+          icon: 'mdi mdi-note',
         },
       ],
     },

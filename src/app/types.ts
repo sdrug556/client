@@ -28,12 +28,15 @@ export interface Product {
 }
 
 export interface ProductTransaction extends Product {
+  priceNonFormatter: number;
   cash: number;
   total: number;
   discount: number;
   qty: number;
   invoiceNumber: number;
   productId: number;
+  totalNonFormatter?: number;
+  pricenonFormatter?: number;
 }
 
 export interface User {

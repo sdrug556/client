@@ -1,4 +1,4 @@
-<h1 class="text-6xl mb-6">Sales Reports</h1>
+<h1 class="text-6xl mb-6">Revenue Reports</h1>
 
 <dx-data-grid class="shadow-xl" [dataSource]="sales" keyExpr="id">
   <dxo-export fileName="sales-report" [enabled]="true"> </dxo-export>
@@ -13,8 +13,7 @@
   <dxo-group-panel [visible]="true"> </dxo-group-panel>
 
   <dxo-toolbar>
-    <dxi-item location="before" name="groupPanel">
-    </dxi-item>
+    <dxi-item location="before" name="groupPanel"> </dxi-item>
     <dxi-item location="after">
       <div *dxTemplate>
         <dx-select-box
@@ -24,7 +23,7 @@
           width="200px"
           [dataSource]="filters"
           (onValueChanged)="filterChanged($event)"
-          >
+        >
         </dx-select-box>
         <!-- <dx-button -->
         <!--   text="Sales Today" -->
@@ -104,17 +103,44 @@
   <dxi-column dataField="invoiceNumber" caption="Invoice Number"></dxi-column>
   <dxi-column dataField="name" caption="Cashier"></dxi-column>
   <dxi-column dataField="productName" caption="Product"></dxi-column>
-  <dxi-column dataField="price" caption="Price"></dxi-column>
+  <dxi-column
+    dataField="price"
+    caption="Price"
+  ></dxi-column>
   <dxi-column dataField="quantity" caption="Quantity"></dxi-column>
   <dxi-column dataField="discount" caption="Discount"></dxi-column>
-  <dxi-column dataField="total" caption="Total"></dxi-column>
+  <dxi-column dataField="total" caption="Total"
+    ></dxi-column>
   <dxi-column
     dataField="createdDate"
     caption="Transaction Date"
     dataType="datetime"
   ></dxi-column>
-  <dxi-column
-    dataField="createdDateFilter"
-    [visible]="false"
-  ></dxi-column>
+  <dxi-column dataField="createdDateFilter" [visible]="false"></dxi-column>
+
+  <dxo-summary
+        [calculateCustomSummary]="calculateCustomSummaryTotal"
+    >
+    <dxi-total-item
+      column="invoiceNumber"
+      summaryType="count"
+      displayFormat="Total:"
+    >
+    </dxi-total-item>
+      <dxi-total-item column="quantity" summaryType="sum" displayFormat="{0}"> </dxi-total-item>
+    <dxi-total-item
+        name="totalPrice"
+        summaryType="custom"
+        displayFormat="{0}"
+        showInColumn="price"
+        >
+    </dxi-total-item>
+    <dxi-total-item
+        name="totalSummary"
+        summaryType="custom"
+        displayFormat="{0}"
+        showInColumn="total"
+        >
+    </dxi-total-item>
+  </dxo-summary>
 </dx-data-grid>

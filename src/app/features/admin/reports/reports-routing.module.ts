@@ -40,6 +40,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'note',
+        data: { breadcrumbs: 'Note' },
+        loadChildren: () =>
+          import('./reports-note/reports-note.module').then(
+            (m) => m.ReportsNoteModule
+          ),
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'sales'

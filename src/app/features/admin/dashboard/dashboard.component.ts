@@ -13,7 +13,6 @@ import { first, take, finalize } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   items: any[] = [];
-  note: any = {};
   isSaving: any;
 
   constructor(
@@ -69,32 +68,8 @@ export class DashboardComponent implements OnInit {
     //     });
     //   });
 
-    this._settingsService
-      .getNoteByType(SettingNoteType.Admin)
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.note = res;
-      });
   }
 
-  save(e: any): void {
-    if (this.isSaving) return;
-    const data = [
-      {
-        ...this.note,
-        ...{
-          note: this.note.note,
-          type: SettingNoteType.Admin,
-          createdDate: Date.now(),
-          createdBy: this._authService.userInfo.id,
-        },
-      },
-    ];
-    this._settingsService
-      .saveNote(data)
-      .pipe(finalize(() => (this.isSaving = false)))
-      .subscribe(() => notify('Notes successfully saved', 'success', 3000));
-  }
 
   private format(key: string): string {
     return key
