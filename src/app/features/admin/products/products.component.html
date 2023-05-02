@@ -34,10 +34,10 @@
   >
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
-  <dxi-column dataField="category" caption="Category" [allowSearch]="false">
-    <dxo-lookup [dataSource]="categories" valueExpr="id" displayExpr="name">
-    </dxo-lookup>
-  </dxi-column>
+  <!-- <dxi-column dataField="category" caption="Category" [allowSearch]="false"> -->
+  <!--   <dxo-lookup [dataSource]="categories" valueExpr="id" displayExpr="name"> -->
+  <!--   </dxo-lookup> -->
+  <!-- </dxi-column> -->
   <dxi-column dataField="supplier" caption="Supplier" [allowSearch]="false">
     <dxo-lookup
       [dataSource]="suppliers"
@@ -109,14 +109,14 @@
     <dxo-form>
       <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
         <dxi-item dataField="name"></dxi-item>
-        <dxi-item dataField="category">
-          <dxo-lookup
-            [dataSource]="categories"
-            valueExpr="id"
-            displayExpr="name"
-          >
-          </dxo-lookup>
-        </dxi-item>
+        <!-- <dxi-item dataField="category"> -->
+        <!--   <dxo-lookup -->
+        <!--     [dataSource]="categories" -->
+        <!--     valueExpr="id" -->
+        <!--     displayExpr="name" -->
+        <!--   > -->
+        <!--   </dxo-lookup> -->
+        <!-- </dxi-item> -->
         <dxi-item dataField="description" caption="Description"> </dxi-item>
         <dxi-item
           dataField="expiration"

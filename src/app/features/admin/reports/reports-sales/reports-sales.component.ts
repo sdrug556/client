@@ -195,6 +195,7 @@ export class ReportsSalesComponent implements OnInit {
     }
 
     if (e.name === 'totalPrice' && e.summaryProcess === 'finalize') {
+      console.log(e);
       const total = this.sales.reduce((prev, cur) => {
         return prev + cur.priceNonFormatter;
       }, 0);

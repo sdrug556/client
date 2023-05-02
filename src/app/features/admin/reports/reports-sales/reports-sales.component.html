@@ -109,8 +109,8 @@
   ></dxi-column>
   <dxi-column dataField="quantity" caption="Quantity"></dxi-column>
   <dxi-column dataField="discount" caption="Discount"></dxi-column>
-  <dxi-column dataField="total" caption="Total"
-    ></dxi-column>
+  <dxi-column dataField="total" caption="Total"></dxi-column>
+  <dxi-column dataField="totalNonFormatter" caption="Total" [visible]="false"></dxi-column>
   <dxi-column
     dataField="createdDate"
     caption="Transaction Date"
@@ -128,18 +128,19 @@
     >
     </dxi-total-item>
       <dxi-total-item column="quantity" summaryType="sum" displayFormat="{0}"> </dxi-total-item>
+    <!-- <dxi-total-item -->
+    <!--     name="totalPrice" -->
+    <!--     summaryType="custom" -->
+    <!--     displayFormat="{0}" -->
+    <!--     showInColumn="price" -->
+    <!--     > -->
+    <!-- </dxi-total-item> -->
     <dxi-total-item
-        name="totalPrice"
-        summaryType="custom"
-        displayFormat="{0}"
-        showInColumn="price"
-        >
-    </dxi-total-item>
-    <dxi-total-item
-        name="totalSummary"
-        summaryType="custom"
-        displayFormat="{0}"
+        column="totalNonFormatter"
+        summaryType="sum"
         showInColumn="total"
+        valueFormat="currency"
+        displayFormat="{0}"
         >
     </dxi-total-item>
   </dxo-summary>
