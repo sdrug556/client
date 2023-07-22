@@ -49,3 +49,10 @@ dx-form {
   overflow: hidden;
   background-color: #fff;
 }
+
+.fw-supplier-inactive,
+.dx-item.dx-list-item:has(.fw-supplier-inactive) {
+  display: none;
+  height: 0;
+  overflow: hidden;
+}

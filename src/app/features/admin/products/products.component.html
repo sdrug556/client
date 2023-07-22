@@ -90,6 +90,7 @@
     caption="Barcode"
     dataType="number"
     [allowSearch]="false"
+    [calculateFilterExpression]="calculateFilterExpression"
   >
   </dxi-column>
 
@@ -123,7 +124,10 @@
           dataField="expiration"
           [editorOptions]="{ dataType: 'date' }"
         ></dxi-item>
-        <dxi-item dataField="supplier">
+        <dxi-item
+          dataField="supplier"
+          [editorOptions]="{ itemTemplate: supplierItemTemplate }"
+        >
           <dxo-lookup
             [dataSource]="suppliers"
             valueExpr="id"
@@ -170,5 +174,4 @@
   <!--     </div> -->
   <!--   </dxi-item> -->
   <!-- </dxo-toolbar> -->
-
 </dx-data-grid>

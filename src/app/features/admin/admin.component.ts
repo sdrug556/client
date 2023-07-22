@@ -36,11 +36,11 @@ export class AdminComponent
       url: 'dashboard',
       icon: 'mdi mdi-view-dashboard',
     },
-    // {
-    //   title: 'Products',
-    //   url: 'products',
-    //   icon: 'mdi mdi-package-variant',
-    // },
+    {
+      title: 'Products',
+      url: 'products',
+      icon: 'mdi mdi-package-variant',
+    },
     // {
     //   title: 'Categories',
     //   url: 'categories',

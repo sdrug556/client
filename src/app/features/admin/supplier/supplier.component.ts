@@ -1,11 +1,17 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { SupplierService } from '@services/supplier.service';
 import { Supplier } from '@types';
 import { DxTextBoxComponent } from 'devextreme-angular';
 import { Properties as dxButtonOptions } from 'devextreme/ui/button';
-import { SavingEvent } from 'devextreme/ui/data_grid';
+import { DataChange, SavingEvent } from 'devextreme/ui/data_grid';
 import notify from 'devextreme/ui/notify';
-import { finalize, first, take } from 'rxjs';
+import { finalize, first, take, map } from 'rxjs';
 import { ComponentBase } from 'src/app/components/component-base';
 import { handleOnSaving } from 'src/app/utils';
 
@@ -56,7 +62,10 @@ export class SupplierComponent
   supplier: Supplier[];
   sendSupplier: any;
 
-  constructor(private _supplierService: SupplierService, private _cdr: ChangeDetectorRef) {
+  constructor(
+    private _supplierService: SupplierService,
+    private _cdr: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -71,13 +80,34 @@ export class SupplierComponent
   private _getAll(): void {
     this._supplierService
       .getAll()
-      .pipe(first())
+      .pipe(
+        first(),
+        map((suppliers) =>
+          suppliers?.map((s) => {
+            s.isDeleted = !s.isDeleted;
+            return s;
+          })
+        )
+      )
       .subscribe((res) => {
         this.supplier = res as Supplier[];
       });
   }
 
   onSaving(e: SavingEvent): void {
+    e.changes = e.changes.map((change: DataChange<Object, number | string>) => {
+      const supplier = this.supplier.find((s) => s.id === change.key);
+      // @ts-ignore-next
+      if (supplier && !change.data.hasOwnProperty('isDeleted')) {
+        // @ts-ignore-next
+        change.data.isDeleted = !supplier.isDeleted;
+      } else {
+        // @ts-ignore-next
+        change.data.isDeleted = !change.data.isDeleted;
+      }
+      return change;
+    });
+    console.log(e);
     handleOnSaving(this._supplierService, e, () => this._getAll());
   }
 

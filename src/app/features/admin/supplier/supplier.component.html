@@ -23,6 +23,9 @@
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-column>
 
+  <dxi-column dataField="isDeleted" caption="Status">
+  </dxi-column>
+
   <dxo-editing
     mode="popup"
     [allowUpdating]="true"
@@ -50,7 +53,7 @@
 
   <dxi-column type="buttons">
     <dxi-button name="edit" text="Edit"></dxi-button>
-    <dxi-button name="delete" text="Delete"></dxi-button>
+    <!-- <dxi-button name="delete" text="Delete"></dxi-button> -->
     <dxi-button
       hint="Send Supplier Email"
       text="Email"

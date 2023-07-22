@@ -115,7 +115,6 @@ export class ProductsComponent
     target: any
   ) {
     const self = this as any;
-    console.log(filterValue, selectedFilterOperation, target);
     // Override implementation for the "between" filter operation
     // if (selectedFilterOperation === "between" && $.isArray(filterValue)) {
     //   const filterExpression = [
@@ -128,9 +127,15 @@ export class ProductsComponent
     // Invoke the default implementation for other filter operations
     if (
       target === 'search' &&
-      (self.dataField === 'name' || self.dataField === 'description')
+      (self.dataField === 'name' || self.dataField === 'description' || self.dataField === 'barcode')
     ) {
-      return [self.dataField, 'startswith', filterValue];
+      return [
+        ['name', 'startswith', filterValue],
+        'or',
+        ['description', 'startswith', filterValue],
+        'or',
+        ['barcode', 'startswith', filterValue],
+      ];
     }
     return self.defaultCalculateFilterExpression
       ? self.defaultCalculateFilterExpression.apply(this, arguments)
@@ -149,4 +154,11 @@ export class ProductsComponent
         ['description', 'startswith', e.value],
       ]);
   }
+
+  supplierItemTemplate = (data: Supplier, index: number, el: HTMLElement) => {
+    if (data.isDeleted) {
+      el.className += ' fw-supplier-inactive';
+    }
+    return data.name;
+  };
 }

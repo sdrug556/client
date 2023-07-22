@@ -23,14 +23,14 @@ const routes: Routes = [
       //       (m) => m.CategoriesModule
       //     ),
       // },
-      // {
-      //   path: 'products',
-      //   data: { breadcrumbs: 'Products' },
-      //   loadChildren: () =>
-      //     import('@features/admin/products/products.module').then(
-      //       (m) => m.ProductsModule
-      //     ),
-      // },
+      {
+        path: 'products',
+        data: { breadcrumbs: 'Products' },
+        loadChildren: () =>
+          import('@features/admin/products/products.module').then(
+            (m) => m.ProductsModule
+          ),
+      },
       {
         path: 'supplier',
         data: { breadcrumbs: 'Supplier' },
